@@ -2,8 +2,6 @@
 
 **Interactive GLSL Curve Editor + LFO for TouchDesigner 2025.x**
 
-![Banner](docs/branding/banner-hex.svg)
-
 [![Version](https://img.shields.io/badge/version-v1.1-blue.svg)]()
 [![TouchDesigner](https://img.shields.io/badge/TouchDesigner-2025.x-orange.svg)]()
 [![GLSL](https://img.shields.io/badge/GLSL-4.60-green.svg)]()
