@@ -1,16 +1,10 @@
-# td-CurveTool
+# CurveTool v1.1
 
-**Interactive Curve Editor + LFO for TouchDesigner 2025.x**
+[![Download Latest](https://img.shields.io/github/v/release/REMvisual/td-CurveTool?style=for-the-badge&label=Download&color=blue)](https://github.com/REMvisual/td-CurveTool/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/REMvisual/td-CurveTool/total?style=for-the-badge)](https://github.com/REMvisual/td-CurveTool/releases)
+![Views](https://komarev.com/ghpvc/?username=REMvisual-td-CurveTool&label=Views&color=brightgreen&style=for-the-badge)
 
-![Banner](docs/branding/banner-hex.svg)
-
-[![Version](https://img.shields.io/badge/version-v1.1-blue.svg)]()
-[![TouchDesigner](https://img.shields.io/badge/TouchDesigner-2025.x-orange.svg)]()
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-## Why This Exists
-
-Drawing custom envelopes and waveform shapes in TouchDesigner means wrestling with keyframes, Animation COMPs, or external tools. td-CurveTool gives you a self-contained curve editor that lives inside any COMP. You draw the shape you want, and the output feeds directly into a Lookup CHOP driven by any timing source -- LFO, beat, timeline, or external signal.
+Interactive curve editor + LFO for TouchDesigner. Draw custom envelopes and waveform shapes, output as a CHOP driven by any timing source — LFO, beat, timeline, or external signal.
 
 ## Features
 
@@ -25,11 +19,13 @@ Drawing custom envelopes and waveform shapes in TouchDesigner means wrestling wi
 - **7-segment value display** -- real-time numeric readout rendered in the shader
 - **Replicable .tox** -- drop copies into any project; each instance is fully isolated
 
-## Quick Start
+## Install
 
-1. Open **TouchDesigner 2025.x**
-2. Drag `CurveTool_V1_1.tox` into your project
-3. Done -- the curve editor is ready to use
+**Requires TouchDesigner 2025+**
+
+1. **[Download the .tox](https://github.com/REMvisual/td-CurveTool/releases/latest)** from Releases
+2. Drag into your TouchDesigner project
+3. Wire the CHOP output to a Lookup CHOP
 
 ### Wire the Output
 
@@ -61,16 +57,6 @@ The `curve_output` Script CHOP outputs your curve shape (default 256 samples). C
 | **Eye toggle** | Show/hide LFO overlay (green scanline + tracking dot) |
 | **RAMP / PING** | Toggle between ramp and ping-pong bounce mode |
 
-## Requirements
-
-- **TouchDesigner 2025.x** (tested with 2025.20000+)
-
-## Version
-
-**v1.1** -- Toolbar, dropdown preset picker, 7-segment display, LFO time controls, RAMP/PING mode toggle.
-
 ## License
 
-MIT
-
-Copyright 2026 REMvisual
+MIT — Copyright 2026 REMvisual
