@@ -1,6 +1,6 @@
 # CurveTool v1.1
 
-![Banner](banner.svg)
+![Banner](https://github.com/REMvisual/td-CurveTool/releases/download/v1.1/banner.png)
 
 [![Download Latest](https://img.shields.io/github/v/release/REMvisual/td-CurveTool?style=for-the-badge&label=Download&color=blue)](https://github.com/REMvisual/td-CurveTool/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/REMvisual/td-CurveTool/total?style=for-the-badge)](https://github.com/REMvisual/td-CurveTool/releases)
