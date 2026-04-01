@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>td-CurveEditor Brand Kit</title>
+<style>
+  /* =============================================
+     RESET & BASE
+     ============================================= */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0A0A0F;
+    color: #CCCCDD;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Subtle noise/grid texture on body */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(77, 217, 255, 0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(77, 217, 255, 0.012) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(77, 217, 255, 0.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* =============================================
+     LAYOUT
+     ============================================= */
+  .page-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  section {
+    padding: 80px 0;
+  }
+
+  /* =============================================
+     TYPOGRAPHY
+     ============================================= */
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #4DD9FF;
+    margin-bottom: 16px;
+    padding: 6px 14px;
+    border: 1px solid rgba(77, 217, 255, 0.2);
+    border-radius: 100px;
+    background: rgba(77, 217, 255, 0.05);
+  }
+
+  .subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: #4DD9FF;
+    font-weight: 400;
+    opacity: 0.85;
+  }
+
+  .muted {
+    color: #555566;
+  }
+
+  .dim {
+    color: #888899;
+    font-size: 0.85rem;
+  }
+
+  /* =============================================
+     HERO
+     ============================================= */
+  .hero {
+    padding: 120px 0 60px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(77, 217, 255, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero h1 {
+    position: relative;
+  }
+
+  .hero .subtitle {
+    margin-top: 16px;
+  }
+
+  .hero-separator {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(77, 217, 255, 0.3), transparent);
+    margin: 48px auto 0;
+  }
+
+  .hero-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 32px;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 30px rgba(77, 217, 255, 0.2));
+  }
+
+  .hero-icon img {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* =============================================
+     CARDS & GRID
+     ============================================= */
+  .card {
+    background: #12121A;
+    border: 1px solid rgba(77, 217, 255, 0.08);
+    border-radius: 16px;
+    padding: 32px;
+    transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(77, 217, 255, 0.02) 0%, transparent 60%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .card:hover {
+    border-color: rgba(77, 217, 255, 0.18);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), 0 0 60px rgba(77, 217, 255, 0.04);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .card-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #555566;
+    margin-bottom: 16px;
+  }
+
+  .card-light {
+    background: #FFFFFF;
+    border-color: #E0E0E8;
+  }
+
+  .card-light:hover {
+    border-color: #B0B0C0;
+  }
+
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .logo-grid .span-2 {
+    grid-column: span 2;
+  }
+
+  .logo-grid .span-3 {
+    grid-column: span 3;
+  }
+
+  .card-wave {
+    background: #1A1A22;
+    border-color: rgba(77, 217, 255, 0.08);
+  }
+
+  .card-wave:hover {
+    border-color: rgba(77, 217, 255, 0.18);
+  }
+
+  .logo-card-desc {
+    font-size: 0.78rem;
+    color: #888899;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+
+  .logo-card-dims {
+    font-size: 0.68rem;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    color: #555566;
+    margin-top: 4px;
+  }
+
+  .logo-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    position: relative;
+  }
+
+  .logo-display img {
+    max-width: 100%;
+    max-height: 160px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  .card:hover .logo-display img {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 20px rgba(77, 217, 255, 0.12));
+  }
+
+  .card-light:hover .logo-display img {
+    filter: drop-shadow(0 0 12px rgba(0, 102, 170, 0.15));
+  }
+
+  /* =============================================
+     BANNER SECTION
+     ============================================= */
+  .banner-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .banner-card {
+    background: #12121A;
+    border: 1px solid rgba(77, 217, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .banner-card:hover {
+    border-color: rgba(77, 217, 255, 0.18);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .banner-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .banner-meta h3 {
+    margin-bottom: 0;
+  }
+
+  .banner-dimensions {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #555566;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    background: rgba(77, 217, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(77, 217, 255, 0.08);
+  }
+
+  .banner-preview {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #0E0E12;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .banner-preview img,
+  .banner-preview svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Inline SVG banner containers */
+  .banner-svg-wrap {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #0E0E12;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .banner-svg-wrap svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* =============================================
+     MOCKUPS — IN THE WILD
+     ============================================= */
+  .mockup-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  @media (min-width: 768px) {
+    .mockup-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .mockup-grid .mockup-full {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .mockup-frame {
+    background: #12121A;
+    border: 1px solid rgba(77, 217, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .mockup-frame:hover {
+    border-color: rgba(77, 217, 255, 0.18);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), 0 0 60px rgba(77, 217, 255, 0.04);
+  }
+
+  .mockup-chrome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    background: #1A1A24;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .mockup-chrome-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #333340;
+  }
+
+  .mockup-chrome-dot.red { background: #FF5F56; }
+  .mockup-chrome-dot.yellow { background: #FFBD2E; }
+  .mockup-chrome-dot.green { background: #27C93F; }
+
+  .mockup-chrome-url {
+    flex: 1;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #555566;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    background: rgba(0,0,0,0.2);
+    padding: 5px 12px;
+    border-radius: 6px;
+    margin-left: 8px;
+  }
+
+  .mockup-body {
+    padding: 24px;
+  }
+
+  .mockup-caption {
+    padding: 16px 24px;
+    background: rgba(0,0,0,0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 0.8rem;
+    color: #555566;
+    font-style: italic;
+  }
+
+  /* ---- GitHub Repo Mockup ---- */
+  .gh-header {
+    background: #0D1117;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #30363D;
+  }
+
+  .gh-nav {
+    display: flex;
+    gap: 0;
+    background: #161B22;
+    padding: 0 16px;
+    border-bottom: 1px solid #30363D;
+  }
+
+  .gh-nav-item {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+    color: #8B949E;
+    border-bottom: 2px solid transparent;
+    cursor: default;
+    transition: color 0.2s;
+  }
+
+  .gh-nav-item.active {
+    color: #F0F6FC;
+    border-bottom-color: #F78166;
+  }
+
+  .gh-repo-header {
+    padding: 20px;
+  }
+
+  .gh-repo-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .gh-repo-name img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  .gh-repo-name span {
+    font-size: 1.15rem;
+    color: #58A6FF;
+    font-weight: 600;
+  }
+
+  .gh-repo-name .gh-slash {
+    color: #484F58;
+    font-weight: 300;
+  }
+
+  .gh-badge-row {
+    display: flex;
+    gap: 4px;
+    margin-left: 8px;
+    flex-wrap: wrap;
+  }
+
+  .gh-badge {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+    border: 1px solid #30363D;
+    color: #8B949E;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .gh-desc {
+    color: #8B949E;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .gh-stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .gh-stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: #8B949E;
+    padding: 5px 14px;
+    background: #21262D;
+    border: 1px solid #30363D;
+    border-radius: 6px;
+    cursor: default;
+    transition: border-color 0.2s;
+  }
+
+  .gh-stat:hover {
+    border-color: #484F58;
+  }
+
+  .gh-stat svg {
+    width: 16px;
+    height: 16px;
+    fill: #8B949E;
+  }
+
+  .gh-stat-count {
+    font-weight: 600;
+    color: #C9D1D9;
+  }
+
+  .gh-topics {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .gh-topic {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: rgba(56, 139, 253, 0.1);
+    color: #58A6FF;
+    font-weight: 500;
+    cursor: default;
+  }
+
+  /* ---- TouchDesigner Network Mockup ---- */
+  .td-network {
+    background: #1D1D2B;
+    border-radius: 10px;
+    padding: 24px;
+    min-height: 280px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .td-network::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .td-node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+  }
+
+  .td-node-box {
+    width: 100px;
+    height: 68px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .td-node:hover .td-node-box {
+    border-color: rgba(77, 217, 255, 0.4);
+    box-shadow: 0 0 20px rgba(77, 217, 255, 0.1);
+  }
+
+  .td-node-box img {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+  }
+
+  .td-node-label {
+    font-size: 0.65rem;
+    color: #888899;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .td-node-type {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.25);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    text-transform: uppercase;
+  }
+
+  .td-node-comp { background: linear-gradient(135deg, #1A1A2E 0%, #16162A 100%); }
+  .td-node-top { background: linear-gradient(135deg, #2A1A3A 0%, #221630 100%); }
+  .td-node-chop { background: linear-gradient(135deg, #1A2A1A 0%, #162216 100%); }
+  .td-node-dat { background: linear-gradient(135deg, #2A2A1A 0%, #222216 100%); }
+
+  /* Wire connections */
+  .td-wire {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .td-wire line {
+    stroke: rgba(77, 217, 255, 0.15);
+    stroke-width: 1.5;
+  }
+
+  .td-wire-active line {
+    stroke: rgba(77, 217, 255, 0.35);
+    stroke-dasharray: 4 3;
+    animation: wirePulse 2s linear infinite;
+  }
+
+  @keyframes wirePulse {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -14; }
+  }
+
+  .td-toolbar {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 3;
+  }
+
+  .td-toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.65rem;
+    color: #555566;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+
+  .td-toolbar-breadcrumb {
+    color: #888899;
+  }
+
+  .td-toolbar-breadcrumb span {
+    color: #4DD9FF;
+    opacity: 0.7;
+  }
+
+  /* ---- Twitter / Social Card Mockup ---- */
+  .tweet-card {
+    background: #15202B;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid #38444D;
+    max-width: 100%;
+  }
+
+  .tweet-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .tweet-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0E0E12, #1A1A2E);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(77, 217, 255, 0.2);
+    flex-shrink: 0;
+  }
+
+  .tweet-avatar img {
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+  }
+
+  .tweet-author {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .tweet-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #F0F6FC;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tweet-handle {
+    font-size: 0.8rem;
+    color: #8B949E;
+  }
+
+  .tweet-text {
+    font-size: 0.95rem;
+    color: #E7E9EA;
+    margin-bottom: 14px;
+    line-height: 1.45;
+  }
+
+  .tweet-text .tweet-hashtag {
+    color: #1D9BF0;
+  }
+
+  .tweet-preview {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #38444D;
+    margin-bottom: 12px;
+  }
+
+  .tweet-preview-img {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    background: #0E0E12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tweet-preview-img img {
+    width: 80%;
+    max-height: 90%;
+    object-fit: contain;
+  }
+
+  /* Fake the social preview with a styled banner */
+  .social-preview-fake {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    background: linear-gradient(135deg, #0A0A0F 0%, #0E0E12 50%, #0A0A0F 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .social-preview-fake::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(77, 217, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(77, 217, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .social-preview-fake .social-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 1;
+  }
+
+  .social-preview-fake .social-inner img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .social-preview-fake .social-inner .social-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+  }
+
+  .social-preview-fake .social-inner .social-title .cyan {
+    color: #4DD9FF;
+    font-weight: 400;
+  }
+
+  .social-preview-fake .social-inner .social-sub {
+    font-size: 0.7rem;
+    color: #555566;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .social-preview-fake::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 10%, #4DD9FF 50%, transparent 90%);
+    opacity: 0.5;
+  }
+
+  .tweet-preview-meta {
+    padding: 10px 14px;
+    background: #192734;
+    border-top: 1px solid #38444D;
+  }
+
+  .tweet-preview-domain {
+    font-size: 0.7rem;
+    color: #8B949E;
+    margin-bottom: 2px;
+  }
+
+  .tweet-preview-title {
+    font-size: 0.85rem;
+    color: #E7E9EA;
+    font-weight: 600;
+  }
+
+  .tweet-preview-desc {
+    font-size: 0.75rem;
+    color: #8B949E;
+    margin-top: 2px;
+  }
+
+  .tweet-actions {
+    display: flex;
+    justify-content: space-between;
+    max-width: 320px;
+    padding-top: 4px;
+  }
+
+  .tweet-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #8B949E;
+    font-size: 0.78rem;
+    cursor: default;
+    transition: color 0.2s;
+  }
+
+  .tweet-action svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  .tweet-action:hover { color: #1D9BF0; }
+  .tweet-action.like:hover { color: #F91880; }
+  .tweet-action.retweet:hover { color: #00BA7C; }
+
+  /* ---- Badge Row Mockup ---- */
+  .badge-mockup {
+    background: #0D1117;
+    border-radius: 10px;
+    padding: 24px;
+    border: 1px solid #30363D;
+  }
+
+  .badge-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .badge-row img {
+    height: 22px;
+    border-radius: 3px;
+  }
+
+  .shield-badge {
+    display: inline-flex;
+    height: 22px;
+    border-radius: 3px;
+    overflow: hidden;
+    font-size: 0.68rem;
+    font-weight: 600;
+    font-family: 'Verdana', 'DejaVu Sans', sans-serif;
+    line-height: 22px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+
+  .shield-left {
+    padding: 0 7px;
+    background: #555;
+    color: #FFF;
+  }
+
+  .shield-right {
+    padding: 0 7px;
+    color: #FFF;
+  }
+
+  .shield-right.blue { background: #007EC6; }
+  .shield-right.green { background: #97CA00; }
+  .shield-right.orange { background: #FE7D37; }
+  .shield-right.brightgreen { background: #4CC61E; }
+  .shield-right.cyan { background: #2CB5BD; }
+
+  .badge-readme-preview {
+    color: #C9D1D9;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .badge-readme-preview h4 {
+    font-size: 1.2rem;
+    color: #F0F6FC;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badge-readme-preview h4 img {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+  }
+
+  .badge-readme-preview p {
+    color: #8B949E;
+    margin-bottom: 12px;
+  }
+
+  /* =============================================
+     COLOR PALETTE
+     ============================================= */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .swatch {
+    border-radius: 12px;
+    overflow: hidden;
+    background: #12121A;
+    border: 1px solid rgba(77, 217, 255, 0.06);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .swatch:hover {
+    transform: translateY(-2px);
+    border-color: rgba(77, 217, 255, 0.15);
+  }
+
+  .swatch-color {
+    height: 80px;
+    position: relative;
+  }
+
+  .swatch-color::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.15));
+  }
+
+  .swatch-info {
+    padding: 14px 16px;
+  }
+
+  .swatch-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #CCCCDD;
+    margin-bottom: 4px;
+  }
+
+  .swatch-hex {
+    font-size: 0.72rem;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    color: #555566;
+  }
+
+  /* Light swatch text adjustment */
+  .swatch-light .swatch-info {
+    background: rgba(255,255,255,0.02);
+  }
+
+  /* =============================================
+     TYPOGRAPHY SECTION
+     ============================================= */
+  .type-specimens {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .type-specimen {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    align-items: start;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .type-specimen:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 600px) {
+    .type-specimen {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
+  .type-meta {
+    font-size: 0.72rem;
+    color: #555566;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    line-height: 1.8;
+  }
+
+  .type-preview {
+    color: #FFFFFF;
+  }
+
+  .type-preview-primary {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .type-preview-mono {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #4DD9FF;
+  }
+
+  .type-preview-body {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #CCCCDD;
+    line-height: 1.6;
+  }
+
+  .type-preview-label {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #4DD9FF;
+  }
+
+  /* =============================================
+     FOOTER
+     ============================================= */
+  .footer {
+    text-align: center;
+    padding: 60px 0 80px;
+    border-top: 1px solid rgba(77, 217, 255, 0.06);
+  }
+
+  .footer-note {
+    font-size: 0.85rem;
+    color: #555566;
+    margin-top: 16px;
+  }
+
+  .footer-logo {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 16px;
+    opacity: 0.5;
+  }
+
+  .footer-logo img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .download-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding: 12px 24px;
+    background: rgba(77, 217, 255, 0.06);
+    border: 1px solid rgba(77, 217, 255, 0.12);
+    border-radius: 10px;
+    color: #4DD9FF;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .download-note:hover {
+    background: rgba(77, 217, 255, 0.1);
+    border-color: rgba(77, 217, 255, 0.25);
+  }
+
+  .download-note svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: #4DD9FF;
+    stroke-width: 2;
+  }
+
+  /* =============================================
+     ANIMATIONS
+     ============================================= */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-in {
+    animation: fadeInUp 0.7s ease-out both;
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+
+  /* Intersection observer driven class */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* =============================================
+     RESPONSIVE
+     ============================================= */
+  @media (max-width: 768px) {
+    .page-wrapper {
+      padding: 0 20px;
+    }
+    section { padding: 48px 0; }
+    .hero { padding: 80px 0 40px; }
+    .logo-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .logo-grid .span-2 {
+      grid-column: span 2;
+    }
+    .logo-grid .span-3 {
+      grid-column: span 2;
+    }
+    .palette-grid {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .logo-grid {
+      grid-template-columns: 1fr;
+    }
+    .logo-grid .span-2,
+    .logo-grid .span-3 {
+      grid-column: span 1;
+    }
+    .gh-stats {
+      gap: 8px;
+    }
+    .gh-stat {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- ============================================= -->
+  <!-- HERO                                          -->
+  <!-- ============================================= -->
+  <section class="hero">
+    <div class="hero-icon animate-in">
+      <img src="logo-compact.svg" alt="td-CurveEditor icon">
+    </div>
+    <h1 class="animate-in delay-1">td-CurveEditor<br>Brand Kit</h1>
+    <p class="subtitle animate-in delay-2">Logo, banners, and mockup gallery</p>
+    <div class="hero-separator animate-in delay-3"></div>
+  </section>
+
+
+  <!-- ============================================= -->
+  <!-- LOGO VARIATIONS                               -->
+  <!-- ============================================= -->
+  <section id="logos">
+    <span class="section-label reveal">01</span>
+    <h2 class="reveal">Logo Variations</h2>
+    <p class="dim reveal" style="margin-bottom: 32px;">
+      Ten variants for different contexts. Dark variants for dark backgrounds, light variant for print and light UIs, specialty marks for branding flexibility.
+    </p>
+
+    <div class="logo-grid">
+
+      <!-- Row 1: Icon (1 col) + Full Logo (2 cols) -->
+
+      <!-- Icon -->
+      <div class="card reveal">
+        <div class="card-label">logo-icon.svg</div>
+        <div class="logo-display">
+          <img src="logo-icon.svg" alt="td-CurveEditor icon logo" style="max-height: 140px;">
+        </div>
+        <div class="logo-card-desc">Rounded square icon for favicons, app icons, and thumbnails</div>
+        <div class="logo-card-dims">512 &times; 512</div>
+      </div>
+
+      <!-- Full Logo -->
+      <div class="card span-2 reveal">
+        <div class="card-label">logo-full.svg</div>
+        <div class="logo-display" style="min-height: 120px;">
+          <img src="logo-full.svg" alt="td-CurveEditor full horizontal logo" style="max-width: 90%; max-height: 100px;">
+        </div>
+        <div class="logo-card-desc">Horizontal icon + wordmark for headers, README banners, and wide placements</div>
+        <div class="logo-card-dims">800 &times; 200</div>
+      </div>
+
+      <!-- Row 2: Compact Dark + Compact Light + Wave -->
+
+      <!-- Compact Dark -->
+      <div class="card reveal">
+        <div class="card-label">logo-compact.svg</div>
+        <div class="logo-display">
+          <img src="logo-compact.svg" alt="td-CurveEditor compact dark logo" style="max-height: 100px;">
+        </div>
+        <div class="logo-card-desc">Circle mark for dark backgrounds, avatars, and social profiles</div>
+        <div class="logo-card-dims">128 &times; 128</div>
+      </div>
+
+      <!-- Compact Light -->
+      <div class="card card-light reveal">
+        <div class="card-label" style="color: #888899;">logo-compact-light.svg</div>
+        <div class="logo-display">
+          <img src="logo-compact-light.svg" alt="td-CurveEditor compact light logo" style="max-height: 100px;">
+        </div>
+        <div class="logo-card-desc" style="color: #666677;">Circle mark for light backgrounds, print, and light-theme UIs</div>
+        <div class="logo-card-dims" style="color: #999999;">128 &times; 128</div>
+      </div>
+
+      <!-- Wave -->
+      <div class="card card-wave reveal">
+        <div class="card-label">logo-wave.svg</div>
+        <div class="logo-display">
+          <img src="logo-wave.svg" alt="td-CurveEditor wave logo" style="max-height: 140px;">
+        </div>
+        <div class="logo-card-desc">Freestanding curve wave for decorative use and motion graphics</div>
+        <div class="logo-card-dims">512 &times; 512</div>
+      </div>
+
+      <!-- Row 3: Hex + Scope + Monogram -->
+
+      <!-- Hex -->
+      <div class="card reveal">
+        <div class="card-label">logo-hex.svg</div>
+        <div class="logo-display">
+          <img src="logo-hex.svg" alt="td-CurveEditor hexagonal logo" style="max-height: 140px;">
+        </div>
+        <div class="logo-card-desc">Hexagonal container for tech badges, stickers, and embossed marks</div>
+        <div class="logo-card-dims">512 &times; 512</div>
+      </div>
+
+      <!-- Scope -->
+      <div class="card reveal">
+        <div class="card-label">logo-scope.svg</div>
+        <div class="logo-display">
+          <img src="logo-scope.svg" alt="td-CurveEditor oscilloscope logo" style="max-height: 140px;">
+        </div>
+        <div class="logo-card-desc">Oscilloscope / CRT style for retro-tech contexts and audio branding</div>
+        <div class="logo-card-dims">512 &times; 512</div>
+      </div>
+
+      <!-- Monogram -->
+      <div class="card reveal">
+        <div class="card-label">logo-monogram.svg</div>
+        <div class="logo-display">
+          <img src="logo-monogram.svg" alt="td-CurveEditor monogram logo" style="max-height: 140px;">
+        </div>
+        <div class="logo-card-desc">Minimal &ldquo;td&rdquo; monogram in circle for compact watermarks and icons</div>
+        <div class="logo-card-dims">512 &times; 512</div>
+      </div>
+
+      <!-- Row 4: Diamond (1 col) + Stacked (2 cols) -->
+
+      <!-- Diamond -->
+      <div class="card reveal">
+        <div class="card-label">logo-diamond.svg</div>
+        <div class="logo-display">
+          <img src="logo-diamond.svg" alt="td-CurveEditor diamond logo" style="max-height: 140px;">
+        </div>
+        <div class="logo-card-desc">Diamond / rotated square badge for pins, overlays, and accent marks</div>
+        <div class="logo-card-dims">512 &times; 512</div>
+      </div>
+
+      <!-- Stacked -->
+      <div class="card span-2 reveal">
+        <div class="card-label">logo-stacked.svg</div>
+        <div class="logo-display" style="min-height: 200px;">
+          <img src="logo-stacked.svg" alt="td-CurveEditor stacked vertical logo" style="max-height: 200px;">
+        </div>
+        <div class="logo-card-desc">Stacked vertical layout with wordmark for presentations, splash screens, and tall placements</div>
+        <div class="logo-card-dims">512 &times; 600</div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================= -->
+  <!-- GITHUB BANNERS                                -->
+  <!-- ============================================= -->
+  <section id="banners">
+    <span class="section-label reveal">02</span>
+    <h2 class="reveal">GitHub Banners</h2>
+    <p class="dim reveal" style="margin-bottom: 32px;">
+      Sized for GitHub social preview and README header. Generate these from the logo assets using the brand colors below.
+    </p>
+
+    <div class="banner-stack">
+
+      <!-- Social Preview -->
+      <div class="banner-card reveal">
+        <div class="banner-meta">
+          <h3>Social Preview</h3>
+          <span class="banner-dimensions">1280 &times; 640</span>
+        </div>
+        <div class="banner-svg-wrap">
+          <!-- Inline SVG social preview banner -->
+          <svg viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg" style="display:block; width:100%; height:auto;">
+            <defs>
+              <linearGradient id="spBg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#0A0A0F"/>
+                <stop offset="50%" stop-color="#0E0E12"/>
+                <stop offset="100%" stop-color="#0A0A0F"/>
+              </linearGradient>
+              <pattern id="spGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1A1A22" stroke-width="0.5"/>
+              </pattern>
+              <linearGradient id="spCurveGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#3AB8DD"/>
+                <stop offset="50%" stop-color="#4DD9FF"/>
+                <stop offset="100%" stop-color="#6AE4FF"/>
+              </linearGradient>
+              <filter id="spGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
+              </filter>
+              <filter id="spGlowWide" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="20"/>
+              </filter>
+              <linearGradient id="spArea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.06"/>
+                <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="spBorderBot" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="transparent"/>
+                <stop offset="30%" stop-color="#4DD9FF" stop-opacity="0.4"/>
+                <stop offset="70%" stop-color="#4DD9FF" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </linearGradient>
+              <filter id="spTextGlow" x="-10%" y="-20%" width="120%" height="140%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+              </filter>
+            </defs>
+            <!-- Background -->
+            <rect width="1280" height="640" fill="url(#spBg)"/>
+            <rect width="1280" height="640" fill="url(#spGrid)" opacity="0.5"/>
+            <!-- Curve area fill -->
+            <path d="M 100 480 C 250 480, 320 200, 480 280 C 640 360, 680 160, 840 200 C 1000 240, 1050 120, 1180 100 L 1180 540 L 100 540 Z" fill="url(#spArea)"/>
+            <!-- Wide glow -->
+            <path d="M 100 480 C 250 480, 320 200, 480 280 C 640 360, 680 160, 840 200 C 1000 240, 1050 120, 1180 100" fill="none" stroke="#4DD9FF" stroke-width="5" filter="url(#spGlowWide)" opacity="0.3"/>
+            <!-- Glow -->
+            <path d="M 100 480 C 250 480, 320 200, 480 280 C 640 360, 680 160, 840 200 C 1000 240, 1050 120, 1180 100" fill="none" stroke="#4DD9FF" stroke-width="4" filter="url(#spGlow)" opacity="0.6"/>
+            <!-- Curve -->
+            <path d="M 100 480 C 250 480, 320 200, 480 280 C 640 360, 680 160, 840 200 C 1000 240, 1050 120, 1180 100" fill="none" stroke="url(#spCurveGrad)" stroke-width="3" stroke-linecap="round"/>
+            <!-- Control points -->
+            <circle cx="480" cy="280" r="6" fill="#FFFFFF" opacity="0.9"/>
+            <circle cx="840" cy="200" r="6" fill="#FFFFFF" opacity="0.9"/>
+            <circle cx="1180" cy="100" r="5" fill="#FFFFFF" opacity="0.9"/>
+            <!-- LFO scanline -->
+            <line x1="740" y1="80" x2="740" y2="560" stroke="#33FF80" stroke-width="1" opacity="0.2"/>
+            <circle cx="740" cy="310" r="5" fill="#33FF80" opacity="0.7"/>
+            <circle cx="740" cy="310" r="2" fill="#FFFFFF" opacity="0.8"/>
+            <!-- Text -->
+            <text x="640" y="280" text-anchor="middle" font-family="'Segoe UI','Inter',sans-serif" font-size="62" fill="#4DD9FF" font-weight="400" filter="url(#spTextGlow)" opacity="0.4">td</text>
+            <text x="640" y="280" text-anchor="middle" font-family="'Segoe UI','Inter',sans-serif" font-size="62" letter-spacing="1">
+              <tspan fill="#4DD9FF" font-weight="400">td</tspan><tspan fill="#555566" font-weight="300">-</tspan><tspan fill="#FFFFFF" font-weight="700">CurveEditor</tspan>
+            </text>
+            <text x="640" y="320" text-anchor="middle" font-family="'Segoe UI','Inter',sans-serif" font-size="18" fill="#4DD9FF" fill-opacity="0.6" letter-spacing="2.5" font-weight="400">INTERACTIVE GLSL CURVE EDITOR + LFO</text>
+            <text x="640" y="360" text-anchor="middle" font-family="'Segoe UI','Inter',sans-serif" font-size="14" fill="#555566" font-weight="400" letter-spacing="1">TouchDesigner 2025.x Component</text>
+            <!-- Bottom accent -->
+            <rect x="0" y="636" width="1280" height="4" fill="url(#spBorderBot)"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- README Banner -->
+      <div class="banner-card reveal">
+        <div class="banner-meta">
+          <h3>README Banner</h3>
+          <span class="banner-dimensions">1280 &times; 320</span>
+        </div>
+        <div class="banner-svg-wrap">
+          <!-- Inline SVG README banner -->
+          <svg viewBox="0 0 1280 320" xmlns="http://www.w3.org/2000/svg" style="display:block; width:100%; height:auto;">
+            <defs>
+              <linearGradient id="rbBg" x1="0" y1="0" x2="1" y2="0.5">
+                <stop offset="0%" stop-color="#0A0A0F"/>
+                <stop offset="100%" stop-color="#0E0E12"/>
+              </linearGradient>
+              <pattern id="rbGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+                <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#1A1A22" stroke-width="0.4"/>
+              </pattern>
+              <linearGradient id="rbCurveGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#3AB8DD"/>
+                <stop offset="50%" stop-color="#4DD9FF"/>
+                <stop offset="100%" stop-color="#6AE4FF"/>
+              </linearGradient>
+              <filter id="rbGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="5"/>
+              </filter>
+              <linearGradient id="rbArea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.05"/>
+                <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="rbBorderBot" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="transparent"/>
+                <stop offset="30%" stop-color="#4DD9FF" stop-opacity="0.35"/>
+                <stop offset="70%" stop-color="#4DD9FF" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </linearGradient>
+            </defs>
+            <!-- Background -->
+            <rect width="1280" height="320" fill="url(#rbBg)"/>
+            <rect width="1280" height="320" fill="url(#rbGrid)" opacity="0.5"/>
+            <!-- Decorative curve on the right side -->
+            <path d="M 800 280 C 900 280, 950 60, 1050 120 C 1150 180, 1180 40, 1260 30" fill="none" stroke="#4DD9FF" stroke-width="3" filter="url(#rbGlow)" opacity="0.4"/>
+            <path d="M 800 280 C 900 280, 950 60, 1050 120 C 1150 180, 1180 40, 1260 30" fill="none" stroke="url(#rbCurveGrad)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="1050" cy="120" r="5" fill="#FFFFFF" opacity="0.85"/>
+            <circle cx="1260" cy="30" r="4" fill="#FFFFFF" opacity="0.85"/>
+            <!-- Area fill -->
+            <path d="M 800 280 C 900 280, 950 60, 1050 120 C 1150 180, 1180 40, 1260 30 L 1260 300 L 800 300 Z" fill="url(#rbArea)"/>
+            <!-- Logo icon (small) on the left -->
+            <g transform="translate(80, 80)">
+              <circle cx="40" cy="40" r="38" fill="#0E0E12" stroke="#4DD9FF" stroke-opacity="0.15" stroke-width="1"/>
+              <path d="M 16,58 C 28,56 32,22 44,28 C 56,34 60,44 64,36" fill="none" stroke="#4DD9FF" stroke-width="3.5" stroke-linecap="round"/>
+              <circle cx="28" cy="50" r="3" fill="#FFFFFF"/>
+              <circle cx="56" cy="34" r="3" fill="#FFFFFF"/>
+            </g>
+            <!-- Wordmark -->
+            <text x="200" y="158" font-family="'Segoe UI','Inter',sans-serif" font-size="48" letter-spacing="0.5">
+              <tspan fill="#4DD9FF" font-weight="400">td</tspan><tspan fill="#555566" font-weight="300">-</tspan><tspan fill="#FFFFFF" font-weight="700">CurveEditor</tspan>
+            </text>
+            <text x="202" y="190" font-family="'Segoe UI','Inter',sans-serif" font-size="14" fill="#4DD9FF" fill-opacity="0.55" letter-spacing="1.8" font-weight="400">INTERACTIVE GLSL CURVE EDITOR + LFO</text>
+            <!-- Bottom accent -->
+            <rect x="0" y="317" width="1280" height="3" fill="url(#rbBorderBot)"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================= -->
+  <!-- MOCKUPS: IN THE WILD                          -->
+  <!-- ============================================= -->
+  <section id="mockups">
+    <span class="section-label reveal">03</span>
+    <h2 class="reveal">In the Wild</h2>
+    <p class="dim reveal" style="margin-bottom: 40px;">
+      How the branding looks in real-world contexts &mdash; GitHub, TouchDesigner, social media, and documentation.
+    </p>
+
+    <div class="mockup-grid">
+
+      <!-- (a) GitHub Repo Header -->
+      <div class="mockup-frame mockup-full reveal">
+        <div class="mockup-chrome">
+          <div class="mockup-chrome-dot red"></div>
+          <div class="mockup-chrome-dot yellow"></div>
+          <div class="mockup-chrome-dot green"></div>
+          <span class="mockup-chrome-url">github.com/REMvisual/td-CurveEditor</span>
+        </div>
+        <div class="mockup-body" style="padding: 0;">
+          <div class="gh-header">
+            <div class="gh-repo-header">
+              <div class="gh-repo-name">
+                <img src="logo-compact.svg" alt="logo">
+                <span>REMvisual <span class="gh-slash">/</span> td-CurveEditor</span>
+                <div class="gh-badge-row">
+                  <span class="gh-badge">Public</span>
+                </div>
+              </div>
+              <p class="gh-desc">
+                Interactive GLSL curve editor + LFO for TouchDesigner 2025.x. Draw envelope/waveform shapes, output to Lookup CHOP. Replicable .tox component with module-pattern architecture.
+              </p>
+              <div class="gh-stats">
+                <div class="gh-stat">
+                  <svg viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                  <span class="gh-stat-count">47</span>
+                </div>
+                <div class="gh-stat">
+                  <svg viewBox="0 0 16 16"><path d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"/></svg>
+                  <span class="gh-stat-count">12</span>
+                </div>
+                <div class="gh-stat">
+                  <svg viewBox="0 0 16 16"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/></svg>
+                  <span class="gh-stat-count">3</span>
+                </div>
+              </div>
+              <div class="gh-topics">
+                <span class="gh-topic">touchdesigner</span>
+                <span class="gh-topic">glsl</span>
+                <span class="gh-topic">curve-editor</span>
+                <span class="gh-topic">lfo</span>
+                <span class="gh-topic">creative-coding</span>
+                <span class="gh-topic">generative-art</span>
+              </div>
+            </div>
+            <div class="gh-nav">
+              <span class="gh-nav-item active">Code</span>
+              <span class="gh-nav-item">Issues</span>
+              <span class="gh-nav-item">Pull requests</span>
+              <span class="gh-nav-item">Actions</span>
+              <span class="gh-nav-item">Releases</span>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption">GitHub repository header with compact logo as avatar</div>
+      </div>
+
+
+      <!-- (b) TouchDesigner Network Editor -->
+      <div class="mockup-frame reveal">
+        <div class="mockup-chrome">
+          <div class="mockup-chrome-dot red"></div>
+          <div class="mockup-chrome-dot yellow"></div>
+          <div class="mockup-chrome-dot green"></div>
+          <span class="mockup-chrome-url">TouchDesigner 2025.22700</span>
+        </div>
+        <div class="mockup-body" style="padding: 0;">
+          <div class="td-network">
+            <div class="td-toolbar">
+              <div class="td-toolbar-left">
+                <span class="td-toolbar-breadcrumb">/project1 / <span>curve_editor</span></span>
+              </div>
+            </div>
+
+            <!-- Wire SVGs -->
+            <svg class="td-wire td-wire-active" style="position:absolute; left:0; top:0; width:100%; height:100%;">
+              <!-- engine -> glsl -->
+              <line x1="140" y1="118" x2="250" y2="118"/>
+              <!-- glsl -> out -->
+              <line x1="360" y1="118" x2="460" y2="118"/>
+              <!-- engine -> point_tex (vertical then horizontal) -->
+              <line x1="90" y1="148" x2="90" y2="210"/>
+              <line x1="90" y1="210" x2="250" y2="210"/>
+            </svg>
+
+            <!-- Node: curve_engine (DAT) -->
+            <div class="td-node" style="left: 30px; top: 80px;">
+              <div class="td-node-box td-node-dat">
+                <span class="td-node-type">DAT</span>
+                <img src="logo-compact.svg" alt="icon">
+              </div>
+              <span class="td-node-label">curve_engine</span>
+            </div>
+
+            <!-- Node: glsl_render (TOP) -->
+            <div class="td-node" style="left: 220px; top: 80px;">
+              <div class="td-node-box td-node-top" style="background: linear-gradient(135deg, #0E0E12, #0A0A0F);">
+                <span class="td-node-type">TOP</span>
+                <!-- Mini curve preview -->
+                <svg viewBox="0 0 60 40" width="60" height="40">
+                  <rect width="60" height="40" fill="none"/>
+                  <path d="M 5 32 C 15 32, 20 8, 30 18 C 40 28, 45 8, 55 5" fill="none" stroke="#4DD9FF" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="30" cy="18" r="2" fill="#FFFFFF"/>
+                </svg>
+              </div>
+              <span class="td-node-label">glsl_render</span>
+            </div>
+
+            <!-- Node: out1 (TOP) -->
+            <div class="td-node" style="left: 410px; top: 80px;">
+              <div class="td-node-box td-node-top">
+                <span class="td-node-type">OUT</span>
+                <svg viewBox="0 0 40 40" width="36" height="36">
+                  <polygon points="12,8 32,20 12,32" fill="#4DD9FF" opacity="0.5"/>
+                </svg>
+              </div>
+              <span class="td-node-label">out1</span>
+            </div>
+
+            <!-- Node: point_texture (TOP) -->
+            <div class="td-node" style="left: 220px; top: 175px;">
+              <div class="td-node-box td-node-top">
+                <span class="td-node-type">TOP</span>
+                <svg viewBox="0 0 60 20" width="60" height="20">
+                  <rect width="60" height="20" fill="none"/>
+                  <rect x="2" y="6" width="8" height="8" rx="1" fill="#FFCC33" opacity="0.7"/>
+                  <rect x="14" y="4" width="8" height="12" rx="1" fill="#4DD9FF" opacity="0.6"/>
+                  <rect x="26" y="8" width="8" height="4" rx="1" fill="#FFFFFF" opacity="0.5"/>
+                  <rect x="38" y="2" width="8" height="16" rx="1" fill="#33FF80" opacity="0.5"/>
+                  <rect x="50" y="6" width="8" height="8" rx="1" fill="#4DD9FF" opacity="0.4"/>
+                </svg>
+              </div>
+              <span class="td-node-label">point_texture</span>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption">TouchDesigner network editor with logo as COMP thumbnail</div>
+      </div>
+
+
+      <!-- (c) Social Media Card / Tweet -->
+      <div class="mockup-frame reveal">
+        <div class="mockup-chrome">
+          <div class="mockup-chrome-dot red"></div>
+          <div class="mockup-chrome-dot yellow"></div>
+          <div class="mockup-chrome-dot green"></div>
+          <span class="mockup-chrome-url">x.com</span>
+        </div>
+        <div class="mockup-body" style="background: #000000;">
+          <div class="tweet-card">
+            <div class="tweet-header">
+              <div class="tweet-avatar">
+                <img src="logo-compact.svg" alt="avatar">
+              </div>
+              <div class="tweet-author">
+                <span class="tweet-name">REM Visual</span>
+                <span class="tweet-handle">@REMvisual</span>
+              </div>
+            </div>
+            <p class="tweet-text">
+              Just released td-CurveEditor v1.1 &#127899;&#65039;<br><br>
+              GLSL-rendered bezier curves with real-time LFO in TouchDesigner. Module pattern, zero extensions, battle-tested.
+              <br><br>
+              <span class="tweet-hashtag">#TouchDesigner</span>
+              <span class="tweet-hashtag">#GLSL</span>
+              <span class="tweet-hashtag">#CreativeCoding</span>
+              <span class="tweet-hashtag">#GenerativeArt</span>
+            </p>
+            <div class="tweet-preview">
+              <div class="social-preview-fake">
+                <div class="social-inner">
+                  <img src="logo-compact.svg" alt="icon">
+                  <div class="social-title">
+                    <span class="cyan">td</span>-CurveEditor
+                  </div>
+                  <div class="social-sub">Interactive GLSL Curve Editor + LFO</div>
+                </div>
+              </div>
+              <div class="tweet-preview-meta">
+                <div class="tweet-preview-domain">github.com</div>
+                <div class="tweet-preview-title">REMvisual/td-CurveEditor</div>
+                <div class="tweet-preview-desc">Interactive GLSL curve editor + LFO for TouchDesigner 2025.x</div>
+              </div>
+            </div>
+            <div class="tweet-actions">
+              <span class="tweet-action">
+                <svg viewBox="0 0 24 24"><path d="M1.751 10c-.036-.008-.071-.008-.107 0H1.75c.481-5.277 4.96-9.38 10.39-9.38 5.43 0 9.909 4.103 10.39 9.38h-.108c-.036-.008-.071-.008-.107 0h.107C21.91 15.293 17.435 19.38 12 19.38c-1.216 0-2.387-.22-3.467-.623L3.5 20.5l1.775-5.135C3.852 13.85 2.675 12.074 2.272 10.05"/></svg>
+                14
+              </span>
+              <span class="tweet-action retweet">
+                <svg viewBox="0 0 24 24"><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2h4v2H7.5c-2.209 0-4-1.791-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM19.5 20.12l-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2h-4V4h4c2.209 0 4 1.791 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14z"/></svg>
+                8
+              </span>
+              <span class="tweet-action like">
+                <svg viewBox="0 0 24 24"><path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91z"/></svg>
+                92
+              </span>
+              <span class="tweet-action">
+                <svg viewBox="0 0 24 24"><path d="M12 2.59l5.7 5.7-1.41 1.42L13 6.41V16h-2V6.41l-3.3 3.3-1.41-1.42L12 2.59zM21 15l-.02 3.51c0 1.38-1.12 2.49-2.5 2.49H5.5C4.11 21 3 19.88 3 18.5V15h2v3.5c0 .28.22.5.5.5h12.98c.28 0 .5-.22.5-.5L19 15h2z"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption">Twitter/X card with social preview and branded avatar</div>
+      </div>
+
+
+      <!-- (d) README Badge Row -->
+      <div class="mockup-frame mockup-full reveal">
+        <div class="mockup-chrome">
+          <div class="mockup-chrome-dot red"></div>
+          <div class="mockup-chrome-dot yellow"></div>
+          <div class="mockup-chrome-dot green"></div>
+          <span class="mockup-chrome-url">github.com/REMvisual/td-CurveEditor#readme</span>
+        </div>
+        <div class="mockup-body">
+          <div class="badge-mockup">
+            <div class="badge-readme-preview">
+              <h4>
+                <img src="logo-compact.svg" alt="icon">
+                td-CurveEditor
+              </h4>
+              <div class="badge-row">
+                <span class="shield-badge"><span class="shield-left">license</span><span class="shield-right green">MIT</span></span>
+                <span class="shield-badge"><span class="shield-left">platform</span><span class="shield-right cyan">TouchDesigner 2025.x</span></span>
+                <span class="shield-badge"><span class="shield-left">shader</span><span class="shield-right blue">GLSL 4.60</span></span>
+                <span class="shield-badge"><span class="shield-left">version</span><span class="shield-right orange">v1.1</span></span>
+                <span class="shield-badge"><span class="shield-left">stars</span><span class="shield-right brightgreen">47</span></span>
+              </div>
+              <p>
+                Interactive GLSL curve editor + LFO for TouchDesigner. Draw bezier envelopes and waveforms,
+                output to a Lookup CHOP fed by any timing source. Module-pattern architecture, zero extensions, battle-tested.
+              </p>
+              <p style="font-size: 0.8rem; color: #484F58;">
+                &#9654; <a style="color: #58A6FF; text-decoration: none;">Quick Start</a> &nbsp;&bull;&nbsp;
+                &#128214; <a style="color: #58A6FF; text-decoration: none;">Documentation</a> &nbsp;&bull;&nbsp;
+                &#127912; <a style="color: #58A6FF; text-decoration: none;">Examples</a> &nbsp;&bull;&nbsp;
+                &#128172; <a style="color: #58A6FF; text-decoration: none;">Discussions</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption">README header with shields.io badges and branded icon</div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================= -->
+  <!-- COLOR PALETTE                                 -->
+  <!-- ============================================= -->
+  <section id="colors">
+    <span class="section-label reveal">04</span>
+    <h2 class="reveal">Color Palette</h2>
+    <p class="dim reveal" style="margin-bottom: 32px;">
+      The complete brand palette. Built for dark-first interfaces with high-contrast accents.
+    </p>
+
+    <div class="palette-grid">
+      <div class="swatch reveal">
+        <div class="swatch-color" style="background: #0E0E12;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Background Dark</div>
+          <div class="swatch-hex">#0E0E12</div>
+        </div>
+      </div>
+      <div class="swatch reveal">
+        <div class="swatch-color" style="background: #0A0A0F;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Background Darker</div>
+          <div class="swatch-hex">#0A0A0F</div>
+        </div>
+      </div>
+      <div class="swatch reveal">
+        <div class="swatch-color" style="background: #4DD9FF;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Primary Cyan</div>
+          <div class="swatch-hex">#4DD9FF</div>
+        </div>
+      </div>
+      <div class="swatch reveal">
+        <div class="swatch-color" style="background: #FFFFFF; border-bottom: 1px solid rgba(255,255,255,0.06);"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Control Points</div>
+          <div class="swatch-hex">#FFFFFF</div>
+        </div>
+      </div>
+      <div class="swatch reveal">
+        <div class="swatch-color" style="background: #FFCC33;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Active / Hover Gold</div>
+          <div class="swatch-hex">#FFCC33</div>
+        </div>
+      </div>
+      <div class="swatch reveal">
+        <div class="swatch-color" style="background: #33FF80;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">LFO Green</div>
+          <div class="swatch-hex">#33FF80</div>
+        </div>
+      </div>
+      <div class="swatch reveal">
+        <div class="swatch-color" style="background: #1A1A22;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Grid</div>
+          <div class="swatch-hex">#1A1A22</div>
+        </div>
+      </div>
+      <div class="swatch reveal">
+        <div class="swatch-color" style="background: #555566;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Muted Text</div>
+          <div class="swatch-hex">#555566</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================= -->
+  <!-- TYPOGRAPHY                                    -->
+  <!-- ============================================= -->
+  <section id="typography">
+    <span class="section-label reveal">05</span>
+    <h2 class="reveal">Typography</h2>
+    <p class="dim reveal" style="margin-bottom: 40px;">
+      Font stack and text styles used across the brand identity.
+    </p>
+
+    <div class="type-specimens">
+
+      <div class="type-specimen reveal">
+        <div class="type-meta">
+          Role: Display / Headings<br>
+          Family: Inter, Segoe UI, system-ui<br>
+          Weight: 700 &ndash; 800<br>
+          Tracking: -0.02em
+        </div>
+        <div class="type-preview">
+          <div class="type-preview-primary">td-CurveEditor</div>
+          <div class="dim" style="font-size: 0.8rem; margin-top: 4px;">
+            Used for hero titles, section headers, and prominent brand text.
+          </div>
+        </div>
+      </div>
+
+      <div class="type-specimen reveal">
+        <div class="type-meta">
+          Role: Code / Technical<br>
+          Family: SF Mono, Fira Code, Consolas<br>
+          Weight: 400 &ndash; 500<br>
+          Tracking: normal
+        </div>
+        <div class="type-preview">
+          <div class="type-preview-mono">curve_engine.module.get_points()</div>
+          <div class="dim" style="font-size: 0.8rem; margin-top: 4px;">
+            Used for code references, file paths, dimensions, and technical labels.
+          </div>
+        </div>
+      </div>
+
+      <div class="type-specimen reveal">
+        <div class="type-meta">
+          Role: Body Text<br>
+          Family: Inter, Segoe UI, system-ui<br>
+          Weight: 400<br>
+          Line height: 1.6
+        </div>
+        <div class="type-preview">
+          <div class="type-preview-body">
+            Interactive GLSL curve editor and LFO for TouchDesigner 2025.x. Users draw envelope and waveform shapes with bezier control points. Output goes to a Lookup CHOP fed by any timing source.
+          </div>
+        </div>
+      </div>
+
+      <div class="type-specimen reveal">
+        <div class="type-meta">
+          Role: Labels / Tags<br>
+          Family: Inter, Segoe UI, system-ui<br>
+          Weight: 700<br>
+          Tracking: 0.18em
+        </div>
+        <div class="type-preview">
+          <div class="type-preview-label">GLSL 4.60 &nbsp; &bull; &nbsp; TOUCHDESIGNER 2025.x &nbsp; &bull; &nbsp; MODULE PATTERN</div>
+          <div class="dim" style="font-size: 0.8rem; margin-top: 4px;">
+            Used for section labels, badges, category tags, and navigation items.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================= -->
+  <!-- FOOTER                                        -->
+  <!-- ============================================= -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <img src="logo-compact.svg" alt="td-CurveEditor">
+    </div>
+    <p class="footer-note">
+      td-CurveEditor Brand Kit &mdash; all assets in <code style="color: #4DD9FF; font-size: 0.8rem;">docs/branding/</code>
+    </p>
+    <div class="download-note">
+      <svg viewBox="0 0 24 24"><path d="M12 2v13m0 0l-4-4m4 4l4-4M4 19h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      All logo SVGs available for download in the branding directory
+    </div>
+  </footer>
+
+</div>
+
+<!-- ============================================= -->
+<!-- INTERSECTION OBSERVER FOR REVEAL ANIMATIONS   -->
+<!-- ============================================= -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            // Stagger siblings slightly
+            const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+            let idx = 0;
+            siblings.forEach((s, j) => {
+              if (s === entry.target) idx = j;
+            });
+            entry.target.style.transitionDelay = (idx * 0.06) + 's';
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+      reveals.forEach(el => observer.observe(el));
+    } else {
+      // Fallback: show everything
+      reveals.forEach(el => el.classList.add('visible'));
+    }
+  });
+</script>
+
+</body>
+</html>

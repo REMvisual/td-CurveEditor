@@ -1,0 +1,347 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 600" width="512" height="600">
+  <defs>
+    <!-- ============================================ -->
+    <!-- GRADIENTS                                    -->
+    <!-- ============================================ -->
+
+    <!-- Icon container background -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E0E12"/>
+      <stop offset="100%" stop-color="#0A0A0F"/>
+    </linearGradient>
+
+    <!-- Border gradient with diagonal sweep -->
+    <linearGradient id="borderGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.22"/>
+      <stop offset="50%" stop-color="#4DD9FF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0.20"/>
+    </linearGradient>
+
+    <!-- Curve stroke gradient -->
+    <linearGradient id="curveGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3AB8DD"/>
+      <stop offset="30%" stop-color="#4DD9FF"/>
+      <stop offset="70%" stop-color="#6AE4FF"/>
+      <stop offset="100%" stop-color="#4DD9FF"/>
+    </linearGradient>
+
+    <!-- Area fill under curve -->
+    <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.10"/>
+      <stop offset="60%" stop-color="#4DD9FF" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Control point radial glow -->
+    <radialGradient id="pointGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#4DD9FF" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Scanline vertical gradient (fade at edges) -->
+    <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#33FF80" stop-opacity="0"/>
+      <stop offset="15%" stop-color="#33FF80" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#33FF80" stop-opacity="0.4"/>
+      <stop offset="85%" stop-color="#33FF80" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#33FF80" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Scanline dot glow -->
+    <radialGradient id="scanDotGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#33FF80" stop-opacity="0.85"/>
+      <stop offset="40%" stop-color="#33FF80" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#33FF80" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Inner vignette for depth -->
+    <radialGradient id="innerVignette" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#0E0E12" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.35"/>
+    </radialGradient>
+
+    <!-- Top highlight for container -->
+    <linearGradient id="topHighlight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.06"/>
+      <stop offset="30%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- ============================================ -->
+    <!-- FILTERS                                      -->
+    <!-- ============================================ -->
+
+    <!-- Curve glow (tight + medium) -->
+    <filter id="curveGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="blur2"/>
+      </feMerge>
+    </filter>
+
+    <!-- Wide ambient glow for curve -->
+    <filter id="curveGlowWide" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.35 0"/>
+    </filter>
+
+    <!-- Control point outer glow -->
+    <filter id="pointOuterGlow" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Scanline glow -->
+    <filter id="scanGlow" x="-200%" y="-10%" width="500%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4"/>
+    </filter>
+
+    <!-- Container drop shadow -->
+    <filter id="containerShadow" x="-10%" y="-8%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+
+    <!-- Subtle text glow for "td" -->
+    <filter id="textGlow" x="-15%" y="-25%" width="130%" height="150%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 0.35 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Handle line glow -->
+    <filter id="handleGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5"/>
+    </filter>
+
+    <!-- ============================================ -->
+    <!-- PATTERNS                                     -->
+    <!-- ============================================ -->
+
+    <!-- Grid pattern sized for the 280x280 icon -->
+    <pattern id="gridPattern" width="46.67" height="46.67" patternUnits="userSpaceOnUse" x="116" y="16">
+      <line x1="0" y1="0" x2="0" y2="46.67" stroke="#1A1A22" stroke-width="0.7"/>
+      <line x1="0" y1="0" x2="46.67" y2="0" stroke="#1A1A22" stroke-width="0.7"/>
+    </pattern>
+
+    <!-- Clip mask for icon container -->
+    <clipPath id="iconClip">
+      <rect x="116" y="16" width="280" height="280" rx="18"/>
+    </clipPath>
+
+    <!-- Horizontal rule gradient (fade edges) -->
+    <linearGradient id="hrGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#4DD9FF" stop-opacity="0.20"/>
+      <stop offset="50%" stop-color="#4DD9FF" stop-opacity="0.25"/>
+      <stop offset="80%" stop-color="#4DD9FF" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ============================================================ -->
+  <!-- ICON — centered in top half                                   -->
+  <!-- 280x280, positioned at x=116, y=16                           -->
+  <!-- ============================================================ -->
+
+  <!-- Container drop shadow -->
+  <rect x="116" y="16" width="280" height="280" rx="20" fill="none" filter="url(#containerShadow)"/>
+
+  <!-- Container background -->
+  <rect x="116" y="16" width="280" height="280" rx="20" fill="url(#bgGrad)"/>
+
+  <!-- Container border (1px, cyan at 15%) -->
+  <rect x="116" y="16" width="280" height="280" rx="20"
+        fill="none" stroke="url(#borderGrad)" stroke-width="1"/>
+
+  <!-- Clipped icon content -->
+  <g clip-path="url(#iconClip)">
+
+    <!-- Top highlight -->
+    <rect x="116" y="16" width="280" height="280" fill="url(#topHighlight)"/>
+
+    <!-- ============================================ -->
+    <!-- GRID                                         -->
+    <!-- ============================================ -->
+    <rect x="116" y="16" width="280" height="280" fill="url(#gridPattern)" opacity="0.6"/>
+
+    <!-- Subtle axis lines -->
+    <line x1="140" y1="110" x2="372" y2="110" stroke="#1A1A22" stroke-width="0.5" opacity="0.7"/>
+    <line x1="140" y1="202" x2="372" y2="202" stroke="#1A1A22" stroke-width="0.5" opacity="0.7"/>
+
+    <!-- ============================================ -->
+    <!-- AREA FILL UNDER CURVE                        -->
+    <!-- ============================================ -->
+
+    <!-- S-curve area (closed to baseline)
+         Curve spans from x=140 to x=372, y range ~60 to ~250
+         Scanline will be at 60% = x=279
+    -->
+    <path d="M 140 248 C 172 248, 180 230, 202 196
+             C 224 162, 218 108, 248 92
+             C 278 76, 286 150, 310 178
+             C 334 206, 346 78, 372 60
+             L 372 272 L 140 272 Z"
+          fill="url(#areaFill)"/>
+
+    <!-- ============================================ -->
+    <!-- BEZIER CURVE                                 -->
+    <!-- ============================================ -->
+
+    <!-- Wide ambient glow layer -->
+    <path d="M 140 248 C 172 248, 180 230, 202 196
+             C 224 162, 218 108, 248 92
+             C 278 76, 286 150, 310 178
+             C 334 206, 346 78, 372 60"
+          fill="none" stroke="#4DD9FF" stroke-width="3.5" stroke-linecap="round"
+          filter="url(#curveGlowWide)" opacity="0.55"/>
+
+    <!-- Main glow layer -->
+    <path d="M 140 248 C 172 248, 180 230, 202 196
+             C 224 162, 218 108, 248 92
+             C 278 76, 286 150, 310 178
+             C 334 206, 346 78, 372 60"
+          fill="none" stroke="#4DD9FF" stroke-width="3" stroke-linecap="round"
+          filter="url(#curveGlow)"/>
+
+    <!-- Crisp curve on top -->
+    <path d="M 140 248 C 172 248, 180 230, 202 196
+             C 224 162, 218 108, 248 92
+             C 278 76, 286 150, 310 178
+             C 334 206, 346 78, 372 60"
+          fill="none" stroke="url(#curveGrad)" stroke-width="2.4" stroke-linecap="round"/>
+
+    <!-- Bright core line -->
+    <path d="M 140 248 C 172 248, 180 230, 202 196
+             C 224 162, 218 108, 248 92
+             C 278 76, 286 150, 310 178
+             C 334 206, 346 78, 372 60"
+          fill="none" stroke="#FFFFFF" stroke-width="0.7" stroke-linecap="round" opacity="0.2"/>
+
+    <!-- ============================================ -->
+    <!-- SCANLINE (LFO playhead at ~60% X)            -->
+    <!-- x = 140 + 0.6 * 232 = 279                   -->
+    <!-- Curve y at x=279 approx 86 (near the peak)   -->
+    <!-- ============================================ -->
+
+    <!-- Scanline wide glow -->
+    <line x1="279" y1="30" x2="279" y2="282" stroke="#33FF80" stroke-width="10"
+          opacity="0.05" filter="url(#scanGlow)"/>
+
+    <!-- Scanline medium glow -->
+    <line x1="279" y1="36" x2="279" y2="278" stroke="url(#scanGrad)" stroke-width="1.4" opacity="0.5"/>
+
+    <!-- Scanline crisp line -->
+    <line x1="279" y1="42" x2="279" y2="272" stroke="#33FF80" stroke-width="0.7" opacity="0.3"/>
+
+    <!-- Tracking dot at curve intersection (~y=86) -->
+    <circle cx="279" cy="86" r="14" fill="url(#scanDotGlow)" opacity="0.5"/>
+    <circle cx="279" cy="86" r="3.2" fill="#33FF80" opacity="0.9"/>
+    <circle cx="279" cy="86" r="1.4" fill="#FFFFFF" opacity="0.7"/>
+
+    <!-- ============================================ -->
+    <!-- CONTROL POINT HANDLE LINES                   -->
+    <!-- ============================================ -->
+
+    <!-- Point 1 handles (x=202, y=196) -->
+    <line x1="202" y1="196" x2="180" y2="230" stroke="#4DD9FF" stroke-width="0.5"
+          stroke-dasharray="3,3.5" opacity="0.3"/>
+    <line x1="202" y1="196" x2="224" y2="162" stroke="#4DD9FF" stroke-width="0.5"
+          stroke-dasharray="3,3.5" opacity="0.3"/>
+
+    <!-- Point 2 handles (x=248, y=92) -->
+    <line x1="248" y1="92" x2="218" y2="108" stroke="#4DD9FF" stroke-width="0.5"
+          stroke-dasharray="3,3.5" opacity="0.3"/>
+    <line x1="248" y1="92" x2="278" y2="76" stroke="#4DD9FF" stroke-width="0.5"
+          stroke-dasharray="3,3.5" opacity="0.3"/>
+
+    <!-- Point 3 handles (x=310, y=178) -->
+    <line x1="310" y1="178" x2="286" y2="150" stroke="#4DD9FF" stroke-width="0.5"
+          stroke-dasharray="3,3.5" opacity="0.3"/>
+    <line x1="310" y1="178" x2="334" y2="206" stroke="#4DD9FF" stroke-width="0.5"
+          stroke-dasharray="3,3.5" opacity="0.3"/>
+
+    <!-- Handle endpoint dots -->
+    <circle cx="180" cy="230" r="1.6" fill="#4DD9FF" opacity="0.25"/>
+    <circle cx="224" cy="162" r="1.6" fill="#4DD9FF" opacity="0.25"/>
+    <circle cx="218" cy="108" r="1.6" fill="#4DD9FF" opacity="0.25"/>
+    <circle cx="278" cy="76" r="1.6" fill="#4DD9FF" opacity="0.25"/>
+    <circle cx="286" cy="150" r="1.6" fill="#4DD9FF" opacity="0.25"/>
+    <circle cx="334" cy="206" r="1.6" fill="#4DD9FF" opacity="0.25"/>
+
+    <!-- ============================================ -->
+    <!-- CONTROL POINTS                               -->
+    <!-- ============================================ -->
+
+    <!-- Point 1: ease-out region -->
+    <circle cx="202" cy="196" r="16" fill="url(#pointGlow)" opacity="0.8"/>
+    <circle cx="202" cy="196" r="5.5" fill="none" stroke="#4DD9FF" stroke-width="1.3" opacity="0.5"/>
+    <circle cx="202" cy="196" r="3.2" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="202" cy="196" r="1.6" fill="#FFFFFF"/>
+
+    <!-- Point 2: S-curve peak -->
+    <circle cx="248" cy="92" r="18" fill="url(#pointGlow)" opacity="0.9"/>
+    <circle cx="248" cy="92" r="6.5" fill="none" stroke="#4DD9FF" stroke-width="1.5" opacity="0.55"/>
+    <circle cx="248" cy="92" r="3.6" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="248" cy="92" r="1.8" fill="#FFFFFF"/>
+
+    <!-- Point 3: mid dip -->
+    <circle cx="310" cy="178" r="16" fill="url(#pointGlow)" opacity="0.8"/>
+    <circle cx="310" cy="178" r="5.5" fill="none" stroke="#4DD9FF" stroke-width="1.3" opacity="0.5"/>
+    <circle cx="310" cy="178" r="3.2" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="310" cy="178" r="1.6" fill="#FFFFFF"/>
+
+    <!-- ============================================ -->
+    <!-- VIGNETTE OVERLAY                             -->
+    <!-- ============================================ -->
+    <rect x="116" y="16" width="280" height="280" fill="url(#innerVignette)"/>
+
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- TEXT STACK — centered below icon                              -->
+  <!-- Icon bottom = 296, gap = 40, text starts at y=336            -->
+  <!-- ============================================================ -->
+
+  <!-- Line 1: "td" in cyan, light weight -->
+  <text x="256" y="376"
+        text-anchor="middle"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="72" font-weight="300" letter-spacing="6"
+        fill="#4DD9FF"
+        filter="url(#textGlow)">td</text>
+
+  <!-- Line 2: "CurveEditor" in white, bold -->
+  <text x="256" y="432"
+        text-anchor="middle"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="48" font-weight="700" letter-spacing="2"
+        fill="#FFFFFF">CurveEditor</text>
+
+  <!-- Line 3: thin horizontal rule -->
+  <line x1="156" y1="456" x2="356" y2="456"
+        stroke="url(#hrGrad)" stroke-width="1"/>
+
+  <!-- Line 4: subtitle tagline -->
+  <text x="256" y="480"
+        text-anchor="middle"
+        font-family="'Consolas', 'SF Mono', 'Fira Code', 'Courier New', monospace"
+        font-size="13" font-weight="400" letter-spacing="4"
+        fill="#4DD9FF" fill-opacity="0.5">GLSL CURVE EDITOR + LFO</text>
+
+</svg>

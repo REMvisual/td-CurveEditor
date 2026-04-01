@@ -1,0 +1,391 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E0E12"/>
+      <stop offset="100%" stop-color="#0A0A0F"/>
+    </linearGradient>
+
+    <!-- Grid pattern -->
+    <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1A1A22" stroke-width="0.5"/>
+    </pattern>
+
+    <!-- Curve glow filter -->
+    <filter id="curveGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Wide ambient glow -->
+    <filter id="curveGlowWide" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10"/>
+    </filter>
+
+    <!-- Point glow -->
+    <filter id="pointGlow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Scanline glow -->
+    <filter id="scanGlow" x="-200%" y="-10%" width="500%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+
+    <!-- Scanline dot glow -->
+    <radialGradient id="scanDotGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#33FF80" stop-opacity="0.7"/>
+      <stop offset="40%" stop-color="#33FF80" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#33FF80" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Scanline gradient -->
+    <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#33FF80" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#33FF80" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#33FF80" stop-opacity="0.4"/>
+      <stop offset="80%" stop-color="#33FF80" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#33FF80" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Under-curve fill -->
+    <linearGradient id="curveFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0.01"/>
+    </linearGradient>
+
+    <!-- Under-curve fill for animate column (green) -->
+    <linearGradient id="curveFillGreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#33FF80" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#33FF80" stop-opacity="0.01"/>
+    </linearGradient>
+
+    <!-- Subtle text glow -->
+    <filter id="textGlow" x="-10%" y="-20%" width="120%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1"/>
+    </filter>
+
+    <!-- Title text glow -->
+    <filter id="titleGlow" x="-10%" y="-20%" width="120%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 1
+                0 0 0 0 1
+                0 0 0 0 1
+                0 0 0 0.15 0"/>
+    </filter>
+
+    <!-- Column clip paths -->
+    <clipPath id="col1Clip">
+      <rect x="30" y="90" width="387" height="210"/>
+    </clipPath>
+    <clipPath id="col2Clip">
+      <rect x="447" y="90" width="386" height="210"/>
+    </clipPath>
+    <clipPath id="col3Clip">
+      <rect x="863" y="90" width="387" height="210"/>
+    </clipPath>
+  </defs>
+
+  <!-- ============================================ -->
+  <!-- BACKGROUND                                   -->
+  <!-- ============================================ -->
+  <rect width="1280" height="320" fill="url(#bgGrad)"/>
+  <rect width="1280" height="320" fill="url(#gridPattern)" opacity="0.5"/>
+
+  <!-- ============================================ -->
+  <!-- TOP TITLE BAR                                -->
+  <!-- ============================================ -->
+
+  <!-- Title: td-CurveEditor -->
+  <text x="640" y="38" text-anchor="middle"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+        font-size="32" letter-spacing="3" fill="white" fill-opacity="0.6"
+        font-weight="500">
+    <tspan fill="#4DD9FF" fill-opacity="0.7">td</tspan><tspan fill="#555566" fill-opacity="0.5">-</tspan><tspan fill="white" fill-opacity="0.6">CurveEditor</tspan>
+  </text>
+
+  <!-- Thin line below title -->
+  <line x1="80" y1="54" x2="1200" y2="54" stroke="#1A1A22" stroke-width="1"/>
+
+  <!-- ============================================ -->
+  <!-- COLUMN SEPARATORS                            -->
+  <!-- ============================================ -->
+
+  <!-- Vertical divider 1 -->
+  <line x1="427" y1="64" x2="427" y2="300" stroke="#1A1A22" stroke-width="1"/>
+  <!-- Vertical divider 2 -->
+  <line x1="853" y1="64" x2="853" y2="300" stroke="#1A1A22" stroke-width="1"/>
+
+  <!-- ============================================ -->
+  <!-- COLUMN 1 - DRAW                              -->
+  <!-- ============================================ -->
+  <g>
+    <!-- Icon: curve with control points being dragged -->
+    <g transform="translate(175, 96)">
+      <!-- Small curve icon -->
+      <path d="M -18 8 C -8 8, -4 -10, 6 -6 C 16 -2, 14 10, 20 -4"
+            fill="none" stroke="#4DD9FF" stroke-width="1.8" stroke-linecap="round"
+            filter="url(#curveGlow)"/>
+      <!-- Control points -->
+      <circle cx="-18" cy="8" r="2.5" fill="white" opacity="0.9"/>
+      <circle cx="6" cy="-6" r="3" fill="white" opacity="0.95"/>
+      <circle cx="20" cy="-4" r="2.5" fill="white" opacity="0.9"/>
+      <!-- Drag arrow hint on middle point -->
+      <line x1="6" y1="-6" x2="6" y2="-16" stroke="#4DD9FF" stroke-width="0.8" opacity="0.5" stroke-dasharray="2,2"/>
+      <path d="M 3 -14 L 6 -18 L 9 -14" fill="none" stroke="#4DD9FF" stroke-width="0.8" opacity="0.5"/>
+    </g>
+
+    <!-- Title -->
+    <text x="228" y="102" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+          font-size="42" fill="white" font-weight="700" letter-spacing="1.5">Draw</text>
+
+    <!-- Subtitle -->
+    <text x="228" y="128" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+          font-size="18" fill="#4DD9FF" fill-opacity="0.7" font-weight="400"
+          letter-spacing="0.5">Bezier &amp; linear segments</text>
+
+    <!-- Mini visualization: editable curve with handles -->
+    <g clip-path="url(#col1Clip)">
+      <!-- Under-curve fill -->
+      <path d="M 80 270 C 120 270, 140 168, 190 188
+               C 240 208, 230 148, 280 138
+               C 330 128, 340 198, 370 168 L 370 280 L 80 280 Z"
+            fill="url(#curveFill)"/>
+
+      <!-- Ambient glow -->
+      <path d="M 80 270 C 120 270, 140 168, 190 188
+               C 240 208, 230 148, 280 138
+               C 330 128, 340 198, 370 168"
+            fill="none" stroke="#4DD9FF" stroke-width="2.5"
+            filter="url(#curveGlowWide)" opacity="0.4"/>
+
+      <!-- Main curve -->
+      <path d="M 80 270 C 120 270, 140 168, 190 188
+               C 240 208, 230 148, 280 138
+               C 330 128, 340 198, 370 168"
+            fill="none" stroke="#4DD9FF" stroke-width="2" stroke-linecap="round"
+            filter="url(#curveGlow)"/>
+
+      <!-- Handle lines -->
+      <line x1="190" y1="188" x2="160" y2="220" stroke="#4DD9FF" stroke-width="0.5"
+            stroke-dasharray="3,3" opacity="0.35"/>
+      <line x1="190" y1="188" x2="220" y2="168" stroke="#4DD9FF" stroke-width="0.5"
+            stroke-dasharray="3,3" opacity="0.35"/>
+      <line x1="280" y1="138" x2="255" y2="148" stroke="#4DD9FF" stroke-width="0.5"
+            stroke-dasharray="3,3" opacity="0.35"/>
+      <line x1="280" y1="138" x2="310" y2="145" stroke="#4DD9FF" stroke-width="0.5"
+            stroke-dasharray="3,3" opacity="0.35"/>
+
+      <!-- Handle dots -->
+      <circle cx="160" cy="220" r="1.5" fill="#4DD9FF" opacity="0.3"/>
+      <circle cx="220" cy="168" r="1.5" fill="#4DD9FF" opacity="0.3"/>
+      <circle cx="255" cy="148" r="1.5" fill="#4DD9FF" opacity="0.3"/>
+      <circle cx="310" cy="145" r="1.5" fill="#4DD9FF" opacity="0.3"/>
+
+      <!-- Control points -->
+      <circle cx="80" cy="270" r="4" fill="none" stroke="#4DD9FF" stroke-width="1" opacity="0.4"/>
+      <circle cx="80" cy="270" r="2.5" fill="white" opacity="0.9"/>
+
+      <circle cx="190" cy="188" r="5" fill="none" stroke="#4DD9FF" stroke-width="1.2" opacity="0.5"/>
+      <circle cx="190" cy="188" r="3" fill="white" opacity="0.95" filter="url(#pointGlow)"/>
+
+      <circle cx="280" cy="138" r="5" fill="none" stroke="#4DD9FF" stroke-width="1.2" opacity="0.5"/>
+      <circle cx="280" cy="138" r="3" fill="white" opacity="0.95" filter="url(#pointGlow)"/>
+
+      <circle cx="370" cy="168" r="4" fill="none" stroke="#4DD9FF" stroke-width="1" opacity="0.4"/>
+      <circle cx="370" cy="168" r="2.5" fill="white" opacity="0.9"/>
+
+      <!-- Active drag indicator on point 2 -->
+      <circle cx="190" cy="188" r="10" fill="#4DD9FF" opacity="0.06"/>
+    </g>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- COLUMN 2 - SHAPE                             -->
+  <!-- ============================================ -->
+  <g>
+    <!-- Icon: overlapping waveforms -->
+    <g transform="translate(595, 96)">
+      <!-- Sine wave -->
+      <path d="M -22 0 C -14 -12, -6 -12, 0 0 C 6 12, 14 12, 22 0"
+            fill="none" stroke="#4DD9FF" stroke-width="1.5" stroke-linecap="round" opacity="0.9"/>
+      <!-- Triangle wave -->
+      <path d="M -22 4 L -11 -8 L 0 4 L 11 -8 L 22 4"
+            fill="none" stroke="#4DD9FF" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+      <!-- Saw wave -->
+      <path d="M -22 6 L -7 -6 L -7 6 L 8 -6 L 8 6 L 22 -6"
+            fill="none" stroke="#4DD9FF" stroke-width="0.8" stroke-linecap="round" opacity="0.3"/>
+    </g>
+
+    <!-- Title -->
+    <text x="650" y="102" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+          font-size="42" fill="white" font-weight="700" letter-spacing="1.5">Shape</text>
+
+    <!-- Subtitle -->
+    <text x="650" y="128" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+          font-size="18" fill="#4DD9FF" fill-opacity="0.7" font-weight="400"
+          letter-spacing="0.5">12 built-in presets</text>
+
+    <!-- Mini visualization: overlapping preset curves at different opacities -->
+    <g clip-path="url(#col2Clip)">
+      <!-- Curve 1: Sine (strongest) -->
+      <path d="M 480 200 C 520 200, 540 140, 580 140
+               C 620 140, 640 240, 680 240
+               C 720 240, 740 160, 780 160
+               C 800 160, 810 200, 820 200"
+            fill="none" stroke="#4DD9FF" stroke-width="1.8" stroke-linecap="round"
+            opacity="0.7" filter="url(#curveGlow)"/>
+
+      <!-- Curve 2: Ease In-Out -->
+      <path d="M 480 260 C 520 260, 530 260, 560 230
+               C 600 190, 620 148, 660 140
+               C 700 132, 740 138, 780 148
+               C 800 155, 810 170, 820 170"
+            fill="none" stroke="#4DD9FF" stroke-width="1.4" stroke-linecap="round"
+            opacity="0.45"/>
+
+      <!-- Curve 3: Exponential -->
+      <path d="M 480 268 C 540 266, 600 262, 660 252
+               C 700 245, 740 218, 770 180
+               C 790 158, 805 142, 820 132"
+            fill="none" stroke="#4DD9FF" stroke-width="1.1" stroke-linecap="round"
+            opacity="0.28"/>
+
+      <!-- Curve 4: Bell curve -->
+      <path d="M 480 260 C 520 260, 560 258, 600 220
+               C 630 190, 640 148, 660 138
+               C 680 148, 690 190, 720 220
+               C 760 258, 800 260, 820 260"
+            fill="none" stroke="#4DD9FF" stroke-width="1.0" stroke-linecap="round"
+            opacity="0.2"/>
+
+      <!-- Curve 5: Sawtooth -->
+      <path d="M 480 260 L 560 140 L 560 260 L 650 140 L 650 260 L 740 140 L 740 260 L 820 150"
+            fill="none" stroke="#4DD9FF" stroke-width="0.8" stroke-linecap="round"
+            opacity="0.14"/>
+
+      <!-- Curve 6: Triangle -->
+      <path d="M 480 260 L 530 148 L 580 260 L 630 148 L 680 260 L 730 148 L 780 260 L 820 170"
+            fill="none" stroke="#4DD9FF" stroke-width="0.7" stroke-linecap="round"
+            opacity="0.10"/>
+
+      <!-- Subtle fill under the strongest curve -->
+      <path d="M 480 200 C 520 200, 540 140, 580 140
+               C 620 140, 640 240, 680 240
+               C 720 240, 740 160, 780 160
+               C 800 160, 810 200, 820 200 L 820 280 L 480 280 Z"
+            fill="url(#curveFill)" opacity="0.5"/>
+    </g>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- COLUMN 3 - ANIMATE                           -->
+  <!-- ============================================ -->
+  <g>
+    <!-- Icon: LFO scanline crossing curve -->
+    <g transform="translate(1020, 96)">
+      <!-- Small curve -->
+      <path d="M -20 6 C -10 6, -6 -10, 2 -4 C 10 2, 12 -8, 20 -10"
+            fill="none" stroke="#4DD9FF" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+      <!-- Scanline -->
+      <line x1="5" y1="-14" x2="5" y2="12" stroke="#33FF80" stroke-width="1.2" opacity="0.6"/>
+      <!-- Intersection dot -->
+      <circle cx="5" cy="-2" r="2" fill="#33FF80" opacity="0.9"/>
+    </g>
+
+    <!-- Title -->
+    <text x="1072" y="102" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+          font-size="42" fill="white" font-weight="700" letter-spacing="1.5">Animate</text>
+
+    <!-- Subtitle -->
+    <text x="1072" y="128" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+          font-size="18" fill="#4DD9FF" fill-opacity="0.7" font-weight="400"
+          letter-spacing="0.5">LFO + BPM sync</text>
+
+    <!-- Mini visualization: curve with green scanline and tracking dot -->
+    <g clip-path="url(#col3Clip)">
+      <!-- Under-curve fill -->
+      <path d="M 895 258 C 930 258, 950 162, 990 178
+               C 1030 194, 1040 148, 1075 138
+               C 1110 128, 1130 192, 1160 168
+               C 1190 144, 1200 138, 1220 148 L 1220 280 L 895 280 Z"
+            fill="url(#curveFillGreen)" opacity="0.6"/>
+
+      <!-- Ambient curve glow -->
+      <path d="M 895 258 C 930 258, 950 162, 990 178
+               C 1030 194, 1040 148, 1075 138
+               C 1110 128, 1130 192, 1160 168
+               C 1190 144, 1200 138, 1220 148"
+            fill="none" stroke="#4DD9FF" stroke-width="2"
+            filter="url(#curveGlowWide)" opacity="0.3"/>
+
+      <!-- Main curve -->
+      <path d="M 895 258 C 930 258, 950 162, 990 178
+               C 1030 194, 1040 148, 1075 138
+               C 1110 128, 1130 192, 1160 168
+               C 1190 144, 1200 138, 1220 148"
+            fill="none" stroke="#4DD9FF" stroke-width="1.8" stroke-linecap="round"
+            filter="url(#curveGlow)"/>
+
+      <!-- Control points (subtle) -->
+      <circle cx="990" cy="178" r="3" fill="none" stroke="#4DD9FF" stroke-width="0.8" opacity="0.3"/>
+      <circle cx="990" cy="178" r="1.5" fill="white" opacity="0.5"/>
+      <circle cx="1075" cy="138" r="3" fill="none" stroke="#4DD9FF" stroke-width="0.8" opacity="0.3"/>
+      <circle cx="1075" cy="138" r="1.5" fill="white" opacity="0.5"/>
+      <circle cx="1160" cy="168" r="3" fill="none" stroke="#4DD9FF" stroke-width="0.8" opacity="0.3"/>
+      <circle cx="1160" cy="168" r="1.5" fill="white" opacity="0.5"/>
+
+      <!-- LFO Scanline: wide glow -->
+      <line x1="1100" y1="120" x2="1100" y2="280" stroke="#33FF80" stroke-width="10"
+            opacity="0.04" filter="url(#scanGlow)"/>
+
+      <!-- Scanline: medium glow -->
+      <line x1="1100" y1="125" x2="1100" y2="275" stroke="url(#scanGrad)" stroke-width="1.5" opacity="0.5"/>
+
+      <!-- Scanline: crisp line -->
+      <line x1="1100" y1="128" x2="1100" y2="272" stroke="#33FF80" stroke-width="0.8" opacity="0.35"/>
+
+      <!-- Tracking dot glow -->
+      <circle cx="1100" cy="148" r="12" fill="url(#scanDotGlow)" opacity="0.6"/>
+
+      <!-- Tracking dot -->
+      <circle cx="1100" cy="148" r="3.5" fill="#33FF80" opacity="0.9"/>
+      <circle cx="1100" cy="148" r="1.5" fill="white" opacity="0.7"/>
+
+      <!-- Faded "past" curve section (left of scanline, slightly dimmer) -->
+      <!-- Trail dots showing LFO output history -->
+      <circle cx="1060" cy="135" r="1" fill="#33FF80" opacity="0.12"/>
+      <circle cx="1020" cy="154" r="1" fill="#33FF80" opacity="0.08"/>
+      <circle cx="980" cy="180" r="1" fill="#33FF80" opacity="0.05"/>
+    </g>
+  </g>
+
+  <!-- ============================================ -->
+  <!-- BOTTOM ACCENT LINE                           -->
+  <!-- ============================================ -->
+  <line x1="0" y1="318" x2="1280" y2="318" stroke="#4DD9FF" stroke-opacity="0.15" stroke-width="1.5"/>
+  <!-- Bright center segment -->
+  <line x1="440" y1="318" x2="840" y2="318" stroke="#4DD9FF" stroke-opacity="0.35" stroke-width="1.5"/>
+
+  <!-- ============================================ -->
+  <!-- TOP BORDER ACCENT                            -->
+  <!-- ============================================ -->
+  <line x1="0" y1="1" x2="1280" y2="1" stroke="#4DD9FF" stroke-opacity="0.06" stroke-width="1"/>
+
+</svg>

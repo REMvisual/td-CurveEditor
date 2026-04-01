@@ -1,0 +1,558 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <defs>
+    <!-- ============================================================ -->
+    <!-- BACKGROUND GRADIENTS                                         -->
+    <!-- ============================================================ -->
+
+    <!-- Main vertical gradient -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E0E12"/>
+      <stop offset="100%" stop-color="#0A0A0F"/>
+    </linearGradient>
+
+    <!-- Radial depth: lighter center, darker edges -->
+    <radialGradient id="bgRadial" cx="50%" cy="44%" r="50%">
+      <stop offset="0%" stop-color="#181822" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#0E0E12" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0A0A0F" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Vignette: darken edges aggressively -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="58%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="75%" stop-color="#000000" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.60"/>
+    </radialGradient>
+
+    <!-- Cyan aura/halo around the hex logo -->
+    <radialGradient id="hexAura" cx="50%" cy="43.75%" r="30%">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.06"/>
+      <stop offset="40%" stop-color="#4DD9FF" stop-opacity="0.03"/>
+      <stop offset="70%" stop-color="#4DD9FF" stop-opacity="0.01"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- ============================================================ -->
+    <!-- GRID PATTERN                                                  -->
+    <!-- ============================================================ -->
+
+    <pattern id="gridSmall" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1A1A22" stroke-width="0.5" stroke-opacity="0.35"/>
+    </pattern>
+    <pattern id="gridLarge" width="160" height="160" patternUnits="userSpaceOnUse">
+      <path d="M 160 0 L 0 0 0 160" fill="none" stroke="#1A1A22" stroke-width="0.8" stroke-opacity="0.45"/>
+    </pattern>
+
+    <!-- ============================================================ -->
+    <!-- HEX LOGO GRADIENTS                                            -->
+    <!-- ============================================================ -->
+
+    <!-- Hex fill gradient (inside the logo) -->
+    <linearGradient id="hexBgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E0E12"/>
+      <stop offset="100%" stop-color="#0A0A0F"/>
+    </linearGradient>
+
+    <!-- Hex border: lit from above -->
+    <linearGradient id="hexBorderGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.45"/>
+      <stop offset="35%" stop-color="#4DD9FF" stop-opacity="0.30"/>
+      <stop offset="65%" stop-color="#4DD9FF" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0.12"/>
+    </linearGradient>
+
+    <!-- Curve stroke gradient -->
+    <linearGradient id="curveGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3AB8DD"/>
+      <stop offset="25%" stop-color="#4DD9FF"/>
+      <stop offset="60%" stop-color="#6AE4FF"/>
+      <stop offset="100%" stop-color="#4DD9FF"/>
+    </linearGradient>
+
+    <!-- Area fill under curve -->
+    <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.10"/>
+      <stop offset="50%" stop-color="#4DD9FF" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Control point radial glow - cyan -->
+    <radialGradient id="pointGlowCyan" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.60"/>
+      <stop offset="50%" stop-color="#4DD9FF" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Control point radial glow - gold (active point) -->
+    <radialGradient id="pointGlowGold" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFD94D" stop-opacity="0.65"/>
+      <stop offset="50%" stop-color="#FFD94D" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#FFD94D" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Inner vignette for hex depth -->
+    <radialGradient id="hexInnerVignette" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#0E0E12" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#000000" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- Top highlight inside hex -->
+    <linearGradient id="topHighlight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.06"/>
+      <stop offset="25%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Badge background gradient -->
+    <linearGradient id="badgeBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0.02"/>
+    </linearGradient>
+
+    <!-- ============================================================ -->
+    <!-- HEXAGONAL GRID PATTERN (inside logo)                          -->
+    <!-- ============================================================ -->
+
+    <pattern id="hexGrid" width="52" height="90" patternUnits="userSpaceOnUse"
+             patternTransform="translate(640,280)">
+      <!-- Horizontal lines (0 deg) -->
+      <line x1="0" y1="0" x2="52" y2="0" stroke="#1A1A22" stroke-width="0.6"/>
+      <line x1="0" y1="45" x2="52" y2="45" stroke="#1A1A22" stroke-width="0.6"/>
+      <!-- 60 degree lines -->
+      <line x1="0" y1="90" x2="52" y2="0" stroke="#1A1A22" stroke-width="0.6"/>
+      <line x1="0" y1="45" x2="26" y2="0" stroke="#1A1A22" stroke-width="0.6"/>
+      <line x1="26" y1="90" x2="52" y2="45" stroke="#1A1A22" stroke-width="0.6"/>
+      <!-- 120 degree lines (mirror) -->
+      <line x1="0" y1="0" x2="52" y2="90" stroke="#1A1A22" stroke-width="0.6"/>
+      <line x1="26" y1="0" x2="52" y2="45" stroke="#1A1A22" stroke-width="0.6"/>
+      <line x1="0" y1="45" x2="26" y2="90" stroke="#1A1A22" stroke-width="0.6"/>
+    </pattern>
+
+    <!-- ============================================================ -->
+    <!-- FILTERS                                                       -->
+    <!-- ============================================================ -->
+
+    <!-- Heavy drop shadow for the hex logo -->
+    <filter id="hexShadow" x="-30%" y="-25%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="#000000" flood-opacity="0.65"/>
+    </filter>
+
+    <!-- Wide ambient glow for curve inside hex -->
+    <filter id="curveGlowWide" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.50 0"/>
+    </filter>
+
+    <!-- Medium curve glow -->
+    <filter id="curveGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="blur2"/>
+      </feMerge>
+    </filter>
+
+    <!-- Control point outer glow -->
+    <filter id="pointOuterGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Gold point glow -->
+    <filter id="goldGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Text glow -->
+    <filter id="textGlow" x="-15%" y="-25%" width="130%" height="150%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Subtle text glow for subtitle -->
+    <filter id="textGlowSoft" x="-10%" y="-20%" width="120%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- ============================================================ -->
+    <!-- HEX LOGO CLIP PATH                                            -->
+    <!-- ============================================================ -->
+
+    <!--
+      Large flat-top hexagon, ~320px tall, centered at (640, 280).
+      r = 160 (half of 320 height for flat-top hex: height = r * sqrt(3))
+      Actually for flat-top hex: width = 2*r, height = sqrt(3)*r
+      For height=320: r = 320/sqrt(3) = 184.75
+      width = 2 * 184.75 = 369.5
+
+      Flat-top vertices at center (640, 280), r=185:
+        0 deg:   (640+185, 280)       = (825, 280)
+       60 deg:   (640+92.5, 280-160)  = (732.5, 120)
+      120 deg:   (640-92.5, 280-160)  = (547.5, 120)
+      180 deg:   (640-185, 280)       = (455, 280)
+      240 deg:   (640-92.5, 280+160)  = (547.5, 440)
+      300 deg:   (640+92.5, 280+160)  = (732.5, 440)
+    -->
+
+    <clipPath id="hexClip">
+      <polygon points="825,280 732.5,120 547.5,120 455,280 547.5,440 732.5,440"/>
+    </clipPath>
+
+  </defs>
+
+  <!-- ============================================================ -->
+  <!-- BACKGROUND LAYERS                                             -->
+  <!-- ============================================================ -->
+
+  <rect width="1280" height="640" fill="url(#bgGrad)"/>
+  <rect width="1280" height="640" fill="url(#gridSmall)"/>
+  <rect width="1280" height="640" fill="url(#gridLarge)"/>
+  <rect width="1280" height="640" fill="url(#bgRadial)"/>
+
+  <!-- ============================================================ -->
+  <!-- GHOST HEXAGONS — hex constellation behind the logo            -->
+  <!-- ============================================================ -->
+
+  <!-- Ghost hex 1: upper-left, large, tilted -->
+  <polygon points="267,168 222,90 132,90 87,168 132,246 222,246"
+           fill="none" stroke="#4DD9FF" stroke-width="0.8" opacity="0.025"
+           transform="rotate(-12, 177, 168)"/>
+
+  <!-- Ghost hex 2: upper-right, medium -->
+  <polygon points="1108,105 1078,53 1018,53 988,105 1018,157 1078,157"
+           fill="none" stroke="#4DD9FF" stroke-width="0.7" opacity="0.035"
+           transform="rotate(8, 1048, 105)"/>
+
+  <!-- Ghost hex 3: lower-left, large -->
+  <polygon points="310,510 260,423 160,423 110,510 160,597 260,597"
+           fill="none" stroke="#4DD9FF" stroke-width="0.9" opacity="0.02"
+           transform="rotate(15, 210, 510)"/>
+
+  <!-- Ghost hex 4: lower-right, medium-large -->
+  <polygon points="1155,445 1110,367 1020,367 975,445 1020,523 1110,523"
+           fill="none" stroke="#4DD9FF" stroke-width="0.8" opacity="0.03"
+           transform="rotate(-6, 1065, 445)"/>
+
+  <!-- Ghost hex 5: far upper-left, small -->
+  <polygon points="115,50 95,15 55,15 35,50 55,85 95,85"
+           fill="none" stroke="#4DD9FF" stroke-width="0.6" opacity="0.04"
+           transform="rotate(20, 75, 50)"/>
+
+  <!-- Ghost hex 6: center-left, medium -->
+  <polygon points="360,320 325,259 255,259 220,320 255,381 325,381"
+           fill="none" stroke="#4DD9FF" stroke-width="0.7" opacity="0.022"
+           transform="rotate(-8, 290, 320)"/>
+
+  <!-- Ghost hex 7: center-right, medium -->
+  <polygon points="1030,260 995,199 925,199 890,260 925,321 995,321"
+           fill="none" stroke="#4DD9FF" stroke-width="0.7" opacity="0.028"
+           transform="rotate(10, 960, 260)"/>
+
+  <!-- Ghost hex 8: bottom-center, small, close to logo -->
+  <polygon points="700,565 680,530 640,530 620,565 640,600 680,600"
+           fill="none" stroke="#4DD9FF" stroke-width="0.5" opacity="0.03"
+           transform="rotate(-15, 660, 565)"/>
+
+  <!-- ============================================================ -->
+  <!-- SCATTERED PARTICLES                                           -->
+  <!-- ============================================================ -->
+
+  <g>
+    <circle cx="95" cy="38" r="1.3" fill="#4DD9FF" opacity="0.12"/>
+    <circle cx="245" cy="85" r="2.0" fill="#4DD9FF" opacity="0.07"/>
+    <circle cx="420" cy="52" r="1.6" fill="#4DD9FF" opacity="0.10"/>
+    <circle cx="580" cy="35" r="1.0" fill="#4DD9FF" opacity="0.08"/>
+    <circle cx="760" cy="48" r="2.2" fill="#4DD9FF" opacity="0.06"/>
+    <circle cx="910" cy="70" r="1.4" fill="#4DD9FF" opacity="0.11"/>
+    <circle cx="1060" cy="40" r="1.8" fill="#4DD9FF" opacity="0.07"/>
+    <circle cx="1190" cy="82" r="1.1" fill="#4DD9FF" opacity="0.09"/>
+    <circle cx="155" cy="220" r="1.5" fill="#4DD9FF" opacity="0.06"/>
+    <circle cx="1200" cy="200" r="1.7" fill="#4DD9FF" opacity="0.05"/>
+    <circle cx="88" cy="420" r="1.2" fill="#4DD9FF" opacity="0.08"/>
+    <circle cx="1225" cy="380" r="1.5" fill="#4DD9FF" opacity="0.06"/>
+    <circle cx="320" cy="540" r="1.8" fill="#4DD9FF" opacity="0.05"/>
+    <circle cx="960" cy="520" r="1.3" fill="#4DD9FF" opacity="0.07"/>
+    <circle cx="180" cy="560" r="2.0" fill="#4DD9FF" opacity="0.05"/>
+    <circle cx="1100" cy="550" r="1.0" fill="#4DD9FF" opacity="0.09"/>
+    <circle cx="50" cy="130" r="1.4" fill="#4DD9FF" opacity="0.08"/>
+    <circle cx="1240" cy="110" r="1.6" fill="#4DD9FF" opacity="0.06"/>
+    <circle cx="400" cy="180" r="1.0" fill="#4DD9FF" opacity="0.07"/>
+    <circle cx="880" cy="170" r="1.2" fill="#4DD9FF" opacity="0.08"/>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- TOP DECORATIVE LINE WITH HEX ENDPOINTS                       -->
+  <!-- ============================================================ -->
+
+  <!-- Small hex endpoint left -->
+  <polygon points="390,32 385,23 375,23 370,32 375,41 385,41"
+           fill="none" stroke="#4DD9FF" stroke-width="0.8" opacity="0.20"/>
+  <!-- Thin decorative line -->
+  <line x1="392" y1="32" x2="888" y2="32" stroke="#4DD9FF" stroke-width="0.6" opacity="0.12"/>
+  <!-- Small hex endpoint right -->
+  <polygon points="910,32 905,23 895,23 890,32 895,41 905,41"
+           fill="none" stroke="#4DD9FF" stroke-width="0.8" opacity="0.20"/>
+  <!-- Center diamond accent on the line -->
+  <polygon points="640,26 646,32 640,38 634,32"
+           fill="#4DD9FF" fill-opacity="0.08" stroke="#4DD9FF" stroke-width="0.5" opacity="0.18"/>
+
+  <!-- ============================================================ -->
+  <!-- CYAN AURA BEHIND HEX LOGO                                    -->
+  <!-- ============================================================ -->
+
+  <rect width="1280" height="640" fill="url(#hexAura)"/>
+
+  <!-- ============================================================ -->
+  <!-- HEX LOGO — LARGE, CENTER STAGE                               -->
+  <!-- ============================================================ -->
+
+  <!-- Outer shadow layer -->
+  <polygon points="825,280 732.5,120 547.5,120 455,280 547.5,440 732.5,440"
+           fill="none" filter="url(#hexShadow)"/>
+
+  <!-- Main hex background fill -->
+  <polygon points="825,280 732.5,120 547.5,120 455,280 547.5,440 732.5,440"
+           fill="url(#hexBgGrad)"/>
+
+  <!-- Hex border stroke -->
+  <polygon points="825,280 732.5,120 547.5,120 455,280 547.5,440 732.5,440"
+           fill="none" stroke="url(#hexBorderGrad)" stroke-width="2.2" stroke-linejoin="round"/>
+
+  <!-- Clipped content inside hexagon -->
+  <g clip-path="url(#hexClip)">
+
+    <!-- Top highlight wash -->
+    <rect x="455" y="120" width="370" height="320" fill="url(#topHighlight)"/>
+
+    <!-- Hexagonal grid inside -->
+    <rect x="455" y="120" width="370" height="320" fill="url(#hexGrid)" opacity="0.55"/>
+
+    <!-- ======================================================== -->
+    <!-- AREA FILL UNDER CURVE                                     -->
+    <!-- ======================================================== -->
+
+    <!--
+      S-curve flowing from lower-left to upper-right inside hex.
+      4 control points spread across the hex interior.
+      Scaled and translated to fit centered hex at (640, 280).
+    -->
+
+    <path d="M 510 420 C 545 420, 555 400, 580 355
+             C 605 310, 600 270, 630 245
+             C 660 220, 665 290, 690 310
+             C 715 330, 740 185, 760 160
+             L 760 442 510 442 Z"
+          fill="url(#areaFill)"/>
+
+    <!-- ======================================================== -->
+    <!-- BEZIER CURVE — 4-layer glow treatment                     -->
+    <!-- ======================================================== -->
+
+    <!-- Layer 1: Wide ambient glow -->
+    <path d="M 510 420 C 545 420, 555 400, 580 355
+             C 605 310, 600 270, 630 245
+             C 660 220, 665 290, 690 310
+             C 715 330, 740 185, 760 160"
+          fill="none" stroke="#4DD9FF" stroke-width="5" stroke-linecap="round"
+          filter="url(#curveGlowWide)" opacity="0.60"/>
+
+    <!-- Layer 2: Medium glow -->
+    <path d="M 510 420 C 545 420, 555 400, 580 355
+             C 605 310, 600 270, 630 245
+             C 660 220, 665 290, 690 310
+             C 715 330, 740 185, 760 160"
+          fill="none" stroke="#4DD9FF" stroke-width="3.5" stroke-linecap="round"
+          filter="url(#curveGlow)"/>
+
+    <!-- Layer 3: Crisp curve -->
+    <path d="M 510 420 C 545 420, 555 400, 580 355
+             C 605 310, 600 270, 630 245
+             C 660 220, 665 290, 690 310
+             C 715 330, 740 185, 760 160"
+          fill="none" stroke="url(#curveGrad)" stroke-width="2.8" stroke-linecap="round"/>
+
+    <!-- Layer 4: Bright hot-core line -->
+    <path d="M 510 420 C 545 420, 555 400, 580 355
+             C 605 310, 600 270, 630 245
+             C 660 220, 665 290, 690 310
+             C 715 330, 740 185, 760 160"
+          fill="none" stroke="#FFFFFF" stroke-width="0.8" stroke-linecap="round" opacity="0.20"/>
+
+    <!-- ======================================================== -->
+    <!-- TANGENT HANDLE LINES                                      -->
+    <!-- ======================================================== -->
+
+    <!-- Point 1 handles -->
+    <line x1="580" y1="355" x2="555" y2="400" stroke="#4DD9FF" stroke-width="0.6"
+          stroke-dasharray="3,4" opacity="0.30"/>
+    <line x1="580" y1="355" x2="605" y2="310" stroke="#4DD9FF" stroke-width="0.6"
+          stroke-dasharray="3,4" opacity="0.30"/>
+
+    <!-- Point 2 (active gold) handles -->
+    <line x1="630" y1="245" x2="600" y2="270" stroke="#FFD94D" stroke-width="0.7"
+          stroke-dasharray="3,4" opacity="0.38"/>
+    <line x1="630" y1="245" x2="660" y2="220" stroke="#FFD94D" stroke-width="0.7"
+          stroke-dasharray="3,4" opacity="0.38"/>
+
+    <!-- Point 3 handles -->
+    <line x1="690" y1="310" x2="665" y2="290" stroke="#4DD9FF" stroke-width="0.6"
+          stroke-dasharray="3,4" opacity="0.30"/>
+    <line x1="690" y1="310" x2="715" y2="330" stroke="#4DD9FF" stroke-width="0.6"
+          stroke-dasharray="3,4" opacity="0.30"/>
+
+    <!-- Handle endpoint dots -->
+    <circle cx="555" cy="400" r="1.8" fill="#4DD9FF" opacity="0.25"/>
+    <circle cx="605" cy="310" r="1.8" fill="#4DD9FF" opacity="0.25"/>
+    <circle cx="600" cy="270" r="2.0" fill="#FFD94D" opacity="0.30"/>
+    <circle cx="660" cy="220" r="2.0" fill="#FFD94D" opacity="0.30"/>
+    <circle cx="665" cy="290" r="1.8" fill="#4DD9FF" opacity="0.25"/>
+    <circle cx="715" cy="330" r="1.8" fill="#4DD9FF" opacity="0.25"/>
+
+    <!-- ======================================================== -->
+    <!-- CONTROL POINTS                                            -->
+    <!-- ======================================================== -->
+
+    <!-- Point 1: cyan, white core -->
+    <circle cx="580" cy="355" r="16" fill="url(#pointGlowCyan)" opacity="0.85"/>
+    <circle cx="580" cy="355" r="5.5" fill="none" stroke="#4DD9FF" stroke-width="1.3" opacity="0.50"/>
+    <circle cx="580" cy="355" r="3.2" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="580" cy="355" r="1.5" fill="#FFFFFF"/>
+
+    <!-- Point 2: ACTIVE gold point -->
+    <circle cx="630" cy="245" r="20" fill="url(#pointGlowGold)" opacity="0.90"/>
+    <circle cx="630" cy="245" r="7" fill="none" stroke="#FFD94D" stroke-width="1.7" opacity="0.60"/>
+    <circle cx="630" cy="245" r="4" fill="#FFFFFF" opacity="0.97"/>
+    <circle cx="630" cy="245" r="2.0" fill="#FFD94D" opacity="0.85"/>
+
+    <!-- Point 3: cyan, white core -->
+    <circle cx="690" cy="310" r="16" fill="url(#pointGlowCyan)" opacity="0.85"/>
+    <circle cx="690" cy="310" r="5.5" fill="none" stroke="#4DD9FF" stroke-width="1.3" opacity="0.50"/>
+    <circle cx="690" cy="310" r="3.2" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="690" cy="310" r="1.5" fill="#FFFFFF"/>
+
+    <!-- Point 4: upper-right edge, cyan -->
+    <circle cx="760" cy="160" r="16" fill="url(#pointGlowCyan)" opacity="0.80"/>
+    <circle cx="760" cy="160" r="5.5" fill="none" stroke="#4DD9FF" stroke-width="1.3" opacity="0.45"/>
+    <circle cx="760" cy="160" r="3.2" fill="#FFFFFF" opacity="0.92"/>
+    <circle cx="760" cy="160" r="1.5" fill="#FFFFFF"/>
+
+    <!-- ======================================================== -->
+    <!-- VIGNETTE / INNER SHADOW                                   -->
+    <!-- ======================================================== -->
+
+    <polygon points="825,280 732.5,120 547.5,120 455,280 547.5,440 732.5,440"
+             fill="url(#hexInnerVignette)"/>
+
+    <!-- Subtle inner edge darkening -->
+    <polygon points="825,280 732.5,120 547.5,120 455,280 547.5,440 732.5,440"
+             fill="none" stroke="#000000" stroke-width="5" stroke-linejoin="round"
+             opacity="0.14"/>
+
+  </g>
+
+  <!-- Re-draw border on top of clipped content for crisp edge -->
+  <polygon points="825,280 732.5,120 547.5,120 455,280 547.5,440 732.5,440"
+           fill="none" stroke="url(#hexBorderGrad)" stroke-width="2.2" stroke-linejoin="round"/>
+
+  <!-- Bright edge highlight on top two edges -->
+  <line x1="547.5" y1="120" x2="732.5" y2="120" stroke="#4DD9FF" stroke-width="1.0" opacity="0.20"/>
+  <line x1="732.5" y1="120" x2="825" y2="280" stroke="#4DD9FF" stroke-width="0.7" opacity="0.12"/>
+  <line x1="455" y1="280" x2="547.5" y2="120" stroke="#4DD9FF" stroke-width="0.7" opacity="0.12"/>
+
+  <!-- ============================================================ -->
+  <!-- VIGNETTE OVERLAY                                              -->
+  <!-- ============================================================ -->
+
+  <rect width="1280" height="640" fill="url(#vignette)"/>
+
+  <!-- ============================================================ -->
+  <!-- TEXT: "td-CurveEditor" below hex                              -->
+  <!-- ============================================================ -->
+
+  <!-- Title glow layer (behind, blurred cyan) -->
+  <text x="640" y="508" text-anchor="middle"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="96" font-weight="700" letter-spacing="3"
+        fill="#4DD9FF" opacity="0.22" filter="url(#textGlow)">td-CurveEditor</text>
+
+  <!-- Title: multi-color using tspan -->
+  <text x="640" y="508" text-anchor="middle"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="96" font-weight="700" letter-spacing="3"><tspan fill="#4DD9FF">td</tspan><tspan fill="#555566">-</tspan><tspan fill="#FFFFFF">CurveEditor</tspan></text>
+
+  <!-- Subtitle -->
+  <text x="640" y="546" text-anchor="middle"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="28" fill="#4DD9FF" fill-opacity="0.80" font-weight="400">Interactive GLSL Curve Editor + LFO for TouchDesigner</text>
+
+  <!-- Tagline -->
+  <text x="640" y="576" text-anchor="middle"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="20" fill="#777788" font-weight="300">Draw envelopes  &#183;  Shape waveforms  &#183;  Control everything</text>
+
+  <!-- ============================================================ -->
+  <!-- BOTTOM BAR                                                    -->
+  <!-- ============================================================ -->
+
+  <!-- Separator line -->
+  <line x1="60" y1="600" x2="1220" y2="600" stroke="#4DD9FF" stroke-width="0.5" stroke-opacity="0.10"/>
+
+  <!-- Left: REMvisual -->
+  <text x="60" y="628" text-anchor="start"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="18" fill="#555566" font-weight="400">REMvisual</text>
+
+  <!-- Right: version + license -->
+  <text x="1220" y="628" text-anchor="end"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="18" fill="#555566" font-weight="400">v1.1  &#183;  MIT License</text>
+
+  <!-- Center: Feature pill badges -->
+
+  <!-- Badge 1: GLSL Rendered -->
+  <g transform="translate(428, 608)">
+    <rect x="0" y="0" width="148" height="30" rx="15" ry="15"
+          fill="url(#badgeBg)" stroke="#4DD9FF" stroke-width="0.8" stroke-opacity="0.30"/>
+    <text x="74" y="20" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+          font-size="15" fill="#4DD9FF" fill-opacity="0.80" font-weight="500">GLSL Rendered</text>
+  </g>
+
+  <!-- Badge 2: 12 Presets -->
+  <g transform="translate(590, 608)">
+    <rect x="0" y="0" width="118" height="30" rx="15" ry="15"
+          fill="url(#badgeBg)" stroke="#4DD9FF" stroke-width="0.8" stroke-opacity="0.30"/>
+    <text x="59" y="20" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+          font-size="15" fill="#4DD9FF" fill-opacity="0.80" font-weight="500">12 Presets</text>
+  </g>
+
+  <!-- Badge 3: LFO + BPM Sync -->
+  <g transform="translate(722, 608)">
+    <rect x="0" y="0" width="155" height="30" rx="15" ry="15"
+          fill="url(#badgeBg)" stroke="#4DD9FF" stroke-width="0.8" stroke-opacity="0.30"/>
+    <text x="77.5" y="20" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+          font-size="15" fill="#4DD9FF" fill-opacity="0.80" font-weight="500">LFO + BPM Sync</text>
+  </g>
+
+</svg>

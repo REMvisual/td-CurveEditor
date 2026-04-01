@@ -1,0 +1,291 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E0E12"/>
+      <stop offset="100%" stop-color="#0A0A0F"/>
+    </linearGradient>
+
+    <!-- Radial depth overlay -->
+    <radialGradient id="depthOverlay" cx="0.5" cy="0.5" r="0.55">
+      <stop offset="0%" stop-color="#1A1A30" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#1A1A30" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Grid pattern at 80px intervals -->
+    <pattern id="gridLines" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#1A1A22" stroke-width="0.5" stroke-opacity="0.5"/>
+    </pattern>
+
+    <!-- Main curve glow filter -->
+    <filter id="curveGlow" x="-20%" y="-40%" width="140%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur1"/>
+      <feColorMatrix in="blur1" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 0.85 0" result="glow1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur2"/>
+      <feColorMatrix in="blur2" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 1 0" result="glow2"/>
+      <feMerge>
+        <feMergeNode in="glow1"/>
+        <feMergeNode in="glow2"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Shadow curve blur -->
+    <filter id="curveShadow" x="-20%" y="-40%" width="140%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12"/>
+    </filter>
+
+    <!-- Wide ambient glow behind curve -->
+    <filter id="curveAmbient" x="-30%" y="-60%" width="160%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 0.15 0"/>
+    </filter>
+
+    <!-- Control point halo -->
+    <filter id="pointHalo" x="-300%" y="-300%" width="700%" height="700%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 0.7 0" result="halo"/>
+      <feMerge>
+        <feMergeNode in="halo"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Gold point halo for active point -->
+    <filter id="goldHalo" x="-300%" y="-300%" width="700%" height="700%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 1
+                0 0 0 0 0.8
+                0 0 0 0 0.2
+                0 0 0 0.8 0" result="halo"/>
+      <feMerge>
+        <feMergeNode in="halo"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Scanline glow -->
+    <filter id="scanGlow" x="-200%" y="-20%" width="500%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0.2
+                0 0 0 0 1
+                0 0 0 0 0.5
+                0 0 0 0.6 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Tracking dot glow -->
+    <filter id="trackDotGlow" x="-400%" y="-400%" width="900%" height="900%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0.2
+                0 0 0 0 1
+                0 0 0 0 0.5
+                0 0 0 0.9 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Text glow -->
+    <filter id="textGlow" x="-10%" y="-30%" width="120%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 0.35 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Version badge glow -->
+    <filter id="badgeGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+    </filter>
+
+    <!-- Under-curve fill gradient -->
+    <linearGradient id="curveFillGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.06"/>
+      <stop offset="70%" stop-color="#4DD9FF" stop-opacity="0.02"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Scanline vertical gradient (fade at edges) -->
+    <linearGradient id="scanFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#33FF80" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#33FF80" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#33FF80" stop-opacity="0.7"/>
+      <stop offset="80%" stop-color="#33FF80" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#33FF80" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Bracket glow -->
+    <filter id="bracketGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5"/>
+    </filter>
+  </defs>
+
+  <!-- ==================== BACKGROUND ==================== -->
+
+  <!-- Base dark gradient -->
+  <rect width="1280" height="320" fill="url(#bgGrad)"/>
+
+  <!-- Grid pattern -->
+  <rect width="1280" height="320" fill="url(#gridLines)"/>
+
+  <!-- Radial depth overlay -->
+  <rect width="1280" height="320" fill="url(#depthOverlay)"/>
+
+  <!-- ==================== MAIN S-CURVE ==================== -->
+
+  <!-- The S-curve path: bottom-left to top-right
+       Control points at: (40,260), (340,250), (580,80), (780,100), (1000,180), (1240,55) -->
+
+  <!-- Wide ambient glow (atmosphere) -->
+  <path d="M 40 260 C 180 260, 280 250, 400 180 C 520 110, 560 60, 680 80 C 800 100, 860 190, 960 140 C 1060 90, 1120 55, 1240 55"
+        fill="none" stroke="#4DD9FF" stroke-width="4"
+        filter="url(#curveAmbient)"/>
+
+  <!-- Under-curve fill area -->
+  <path d="M 40 260 C 180 260, 280 250, 400 180 C 520 110, 560 60, 680 80 C 800 100, 860 190, 960 140 C 1060 90, 1120 55, 1240 55 L 1240 320 L 40 320 Z"
+        fill="url(#curveFillGrad)"/>
+
+  <!-- Shadow curve (offset 2px down, blurred) -->
+  <path d="M 40 262 C 180 262, 280 252, 400 182 C 520 112, 560 62, 680 82 C 800 102, 860 192, 960 142 C 1060 92, 1120 57, 1240 57"
+        fill="none" stroke="#4DD9FF" stroke-opacity="0.10" stroke-width="5"
+        filter="url(#curveShadow)"/>
+
+  <!-- Main curve with glow -->
+  <path d="M 40 260 C 180 260, 280 250, 400 180 C 520 110, 560 60, 680 80 C 800 100, 860 190, 960 140 C 1060 90, 1120 55, 1240 55"
+        fill="none" stroke="#4DD9FF" stroke-width="3" stroke-linecap="round"
+        filter="url(#curveGlow)"/>
+
+  <!-- ==================== LFO SCANLINE ==================== -->
+
+  <!-- Green vertical scanline at x=780 -->
+  <line x1="780" y1="20" x2="780" y2="300" stroke="url(#scanFade)" stroke-width="1.5"
+        filter="url(#scanGlow)"/>
+
+  <!-- Faint scanline surface glow on ground -->
+  <ellipse cx="780" cy="300" rx="40" ry="4" fill="#33FF80" fill-opacity="0.06"/>
+
+  <!-- Tracking dot at intersection (x=780 on the curve, approximately y=100 based on bezier) -->
+  <circle cx="780" cy="95" r="5" fill="#33FF80" filter="url(#trackDotGlow)"/>
+  <circle cx="780" cy="95" r="2.5" fill="#FFFFFF"/>
+
+  <!-- ==================== CONTROL POINTS ==================== -->
+
+  <!-- Point 1: start (bottom-left) -->
+  <circle cx="40" cy="260" r="6" fill="white" filter="url(#pointHalo)"/>
+  <circle cx="40" cy="260" r="3" fill="white"/>
+
+  <!-- Point 2: shoulder -->
+  <circle cx="400" cy="180" r="6" fill="white" filter="url(#pointHalo)"/>
+  <circle cx="400" cy="180" r="3" fill="white"/>
+
+  <!-- Point 3: active point (gold) - near peak -->
+  <circle cx="680" cy="80" r="7" fill="#FFCC33" filter="url(#goldHalo)"/>
+  <circle cx="680" cy="80" r="3.5" fill="#FFCC33"/>
+  <circle cx="680" cy="80" r="2" fill="#FFFFFF"/>
+
+  <!-- Point 4: end (top-right) -->
+  <circle cx="1240" cy="55" r="6" fill="white" filter="url(#pointHalo)"/>
+  <circle cx="1240" cy="55" r="3" fill="white"/>
+
+  <!-- ==================== TITLE (CENTERED) ==================== -->
+
+  <g transform="translate(640, 148)">
+    <!-- Title glow layer (behind main text, blurred cyan for the "td" portion) -->
+    <text x="0" y="0" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'SF Pro Display', 'Helvetica Neue', sans-serif"
+          font-size="78" letter-spacing="2" dominant-baseline="central"
+          fill="#4DD9FF" fill-opacity="0.25" filter="url(#textGlow)">
+      <tspan font-weight="300">td</tspan><tspan font-weight="200" dx="2" fill-opacity="0">-</tspan><tspan font-weight="700" dx="2" fill-opacity="0">CurveEditor</tspan>
+    </text>
+
+    <!-- Title text (crisp foreground) -->
+    <text x="0" y="0" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'SF Pro Display', 'Helvetica Neue', sans-serif"
+          font-size="78" letter-spacing="2" dominant-baseline="central">
+      <!-- "td" in cyan, light weight -->
+      <tspan fill="#4DD9FF" font-weight="300">td</tspan>
+      <!-- thin dash separator -->
+      <tspan fill="#555566" font-weight="200" dx="2">-</tspan>
+      <!-- "CurveEditor" in bold white -->
+      <tspan fill="#FFFFFF" font-weight="700" dx="2">CurveEditor</tspan>
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="50" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'SF Pro Display', 'Helvetica Neue', sans-serif"
+          font-size="26" fill="#4DD9FF" fill-opacity="0.75" font-weight="400"
+          letter-spacing="2.5">
+      Interactive GLSL Curve Editor + LFO
+    </text>
+  </g>
+
+  <!-- ==================== CORNER ACCENTS ==================== -->
+
+  <!-- Top-left: code brackets -->
+  <text x="24" y="34"
+        font-family="'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace"
+        font-size="20" fill="#4DD9FF" fill-opacity="0.20" font-weight="400"
+        filter="url(#bracketGlow)">&#x27E8;&#x27E9;</text>
+
+  <!-- Top-right: version badge -->
+  <g transform="translate(1186, 14)">
+    <!-- Badge glow behind -->
+    <rect x="0" y="0" width="72" height="30" rx="15" ry="15"
+          fill="#4DD9FF" fill-opacity="0.04" filter="url(#badgeGlow)"/>
+    <!-- Badge body -->
+    <rect x="0" y="0" width="72" height="30" rx="15" ry="15"
+          fill="#0A0A0F" stroke="#4DD9FF" stroke-opacity="0.4" stroke-width="1"/>
+    <!-- Badge text -->
+    <text x="36" y="20" text-anchor="middle"
+          font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+          font-size="15" fill="#4DD9FF" fill-opacity="0.8" font-weight="600"
+          letter-spacing="0.5">v1.1</text>
+  </g>
+
+  <!-- Bottom-right: TouchDesigner label -->
+  <text x="1256" y="306" text-anchor="end"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+        font-size="16" fill="#555566" font-weight="400"
+        letter-spacing="0.5">TouchDesigner 2025.x</text>
+
+  <!-- Bottom-left: REMvisual -->
+  <text x="24" y="306"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+        font-size="16" fill="#444455" font-weight="400"
+        letter-spacing="0.5">REMvisual</text>
+
+  <!-- Bottom accent line -->
+  <line x1="0" y1="318" x2="1280" y2="318"
+        stroke="#4DD9FF" stroke-opacity="0.12" stroke-width="2"/>
+
+</svg>

@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="800" height="200">
+  <defs>
+    <!-- Icon container gradient -->
+    <linearGradient id="iconBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E0E12"/>
+      <stop offset="100%" stop-color="#0A0A0F"/>
+    </linearGradient>
+
+    <!-- Curve glow (outer) -->
+    <filter id="curveGlowOuter" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur1"/>
+      <feColorMatrix in="blur1" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 0.55 0" result="glow1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur2"/>
+      <feColorMatrix in="blur2" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 0.9 0" result="glow2"/>
+      <feMerge>
+        <feMergeNode in="glow1"/>
+        <feMergeNode in="glow2"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Curve glow (wide ambient) -->
+    <filter id="curveGlowAmbient" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 0.2 0"/>
+    </filter>
+
+    <!-- Control point halo -->
+    <filter id="pointHalo" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 0.7 0" result="halo"/>
+      <feMerge>
+        <feMergeNode in="halo"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Subtle text glow -->
+    <filter id="textGlow" x="-10%" y="-20%" width="120%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0.302
+                0 0 0 0 0.851
+                0 0 0 0 1
+                0 0 0 0.3 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Under-curve fill gradient -->
+    <linearGradient id="curveFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0.01"/>
+    </linearGradient>
+
+    <!-- Grid pattern -->
+    <pattern id="gridPattern" width="22" height="22" patternUnits="userSpaceOnUse" x="18" y="12">
+      <path d="M 22 0 L 0 0 0 22" fill="none" stroke="#1A1A22" stroke-width="0.6"/>
+    </pattern>
+
+    <!-- Clip for icon content -->
+    <clipPath id="iconClip">
+      <rect x="10" y="10" width="180" height="180" rx="24" ry="24"/>
+    </clipPath>
+  </defs>
+
+  <!-- ==================== ICON PART ==================== -->
+  <g transform="translate(0, 0)">
+
+    <!-- Icon container background -->
+    <rect x="10" y="10" width="180" height="180" rx="24" ry="24" fill="url(#iconBg)"/>
+
+    <!-- Grid lines (clipped to container) -->
+    <g clip-path="url(#iconClip)">
+      <rect x="10" y="10" width="180" height="180" fill="url(#gridPattern)"/>
+    </g>
+
+    <!-- Cyan border at 15% opacity -->
+    <rect x="10" y="10" width="180" height="180" rx="24" ry="24"
+          fill="none" stroke="#4DD9FF" stroke-opacity="0.15" stroke-width="1"/>
+
+    <!-- Under-curve fill area (matches the S-curve, closed to bottom) -->
+    <g clip-path="url(#iconClip)">
+      <path d="M 30 148 C 60 148, 65 52, 100 100 C 135 148, 140 52, 170 52 L 170 190 L 30 190 Z"
+            fill="url(#curveFill)"/>
+    </g>
+
+    <!-- Wide ambient glow behind curve -->
+    <g clip-path="url(#iconClip)">
+      <path d="M 30 148 C 60 148, 65 52, 100 100 C 135 148, 140 52, 170 52"
+            fill="none" stroke="#4DD9FF" stroke-width="3"
+            filter="url(#curveGlowAmbient)"/>
+    </g>
+
+    <!-- Main S-curve with glow -->
+    <g clip-path="url(#iconClip)">
+      <path d="M 30 148 C 60 148, 65 52, 100 100 C 135 148, 140 52, 170 52"
+            fill="none" stroke="#4DD9FF" stroke-width="2.4" stroke-linecap="round"
+            filter="url(#curveGlowOuter)"/>
+    </g>
+
+    <!-- Control points -->
+    <g clip-path="url(#iconClip)">
+      <!-- Point 1: start (bottom-left) -->
+      <circle cx="30" cy="148" r="4.5" fill="white" filter="url(#pointHalo)"/>
+      <circle cx="30" cy="148" r="2" fill="white"/>
+
+      <!-- Point 2: middle -->
+      <circle cx="100" cy="100" r="5" fill="white" filter="url(#pointHalo)"/>
+      <circle cx="100" cy="100" r="2.2" fill="white"/>
+
+      <!-- Point 3: end (top-right) -->
+      <circle cx="170" cy="52" r="4.5" fill="white" filter="url(#pointHalo)"/>
+      <circle cx="170" cy="52" r="2" fill="white"/>
+    </g>
+
+    <!-- Inner subtle highlight on container top edge -->
+    <rect x="10" y="10" width="180" height="180" rx="24" ry="24"
+          fill="none" stroke="white" stroke-opacity="0.03" stroke-width="1"
+          clip-path="url(#iconClip)"/>
+  </g>
+
+  <!-- ==================== WORDMARK PART ==================== -->
+  <g transform="translate(220, 0)">
+
+    <!-- Subtle glow layer behind "td" -->
+    <text y="114" font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+          font-size="52" letter-spacing="1" fill="#4DD9FF" font-weight="400"
+          filter="url(#textGlow)">td</text>
+
+    <!-- Main wordmark text -->
+    <text y="114" font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+          font-size="52" letter-spacing="1" dominant-baseline="auto">
+      <!-- "td" namespace prefix in cyan, lighter weight -->
+      <tspan fill="#4DD9FF" font-weight="400">td</tspan>
+      <!-- dash separator -->
+      <tspan fill="#555566" font-weight="300" dx="1">-</tspan>
+      <!-- "CurveEditor" in bold white -->
+      <tspan fill="#FFFFFF" font-weight="700" dx="1">CurveEditor</tspan>
+    </text>
+
+    <!-- Horizontal accent line under text -->
+    <line x1="0" y1="126" x2="530" y2="126"
+          stroke="#4DD9FF" stroke-opacity="0.10" stroke-width="1"/>
+
+    <!-- Subtitle -->
+    <text x="2" y="150" font-family="'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif"
+          font-size="14" fill="#4DD9FF" fill-opacity="0.7" font-weight="400"
+          letter-spacing="1.5">
+      Interactive GLSL Curve Editor + LFO
+    </text>
+  </g>
+</svg>

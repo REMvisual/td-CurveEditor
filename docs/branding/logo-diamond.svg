@@ -1,0 +1,251 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background gradient for diamond fill -->
+    <linearGradient id="dmBgGrad" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#0E0E12"/>
+      <stop offset="100%" stop-color="#0A0A0F"/>
+    </linearGradient>
+
+    <!-- Curve stroke gradient — diagonal flow bottom-left to top-right -->
+    <linearGradient id="dmCurveGrad" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3AB8DD"/>
+      <stop offset="35%" stop-color="#4DD9FF"/>
+      <stop offset="65%" stop-color="#6AE4FF"/>
+      <stop offset="100%" stop-color="#4DD9FF"/>
+    </linearGradient>
+
+    <!-- Area fill under curve — subtle diagonal -->
+    <linearGradient id="dmAreaFill" x1="0.3" y1="0.7" x2="0.7" y2="0.3">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Control point radial glow -->
+    <radialGradient id="dmPointGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.55"/>
+      <stop offset="45%" stop-color="#4DD9FF" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Inner vignette for depth -->
+    <radialGradient id="dmVignette" cx="50%" cy="48%" r="55%">
+      <stop offset="0%" stop-color="#0E0E12" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.45"/>
+    </radialGradient>
+
+    <!-- Top-left highlight on diamond surface -->
+    <linearGradient id="dmHighlight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4DD9FF" stop-opacity="0.05"/>
+      <stop offset="40%" stop-color="#4DD9FF" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Curve strong glow — dual-blur composite -->
+    <filter id="dmCurveGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="blur2"/>
+      </feMerge>
+    </filter>
+
+    <!-- Wide ambient glow for atmospheric depth -->
+    <filter id="dmCurveGlowWide" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.35 0"/>
+    </filter>
+
+    <!-- Drop shadow for the diamond container -->
+    <filter id="dmShadow" x="-15%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+
+    <!-- Vertex accent glow -->
+    <filter id="dmVertexGlow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+
+    <!--
+      Diamond geometry — square rotated 45 degrees
+      Side ~= 340px, half-diagonal = 240px
+      Center: (256, 244) — offset from vertical center to leave room for text below
+      Vertices:
+        Top:    (256, 4)    Right:  (496, 244)
+        Bottom: (256, 484)  Left:   (16, 244)
+      All vertices safely within the 512x512 viewBox.
+      Text "CURVE" at Y=504.
+    -->
+
+    <!-- Outer diamond clip path -->
+    <clipPath id="dmDiamondClip">
+      <polygon points="256,4  496,244  256,484  16,244"/>
+    </clipPath>
+  </defs>
+
+  <!-- ============================================ -->
+  <!-- DIAMOND CONTAINER                            -->
+  <!-- ============================================ -->
+
+  <!-- Drop shadow layer -->
+  <polygon points="256,4  496,244  256,484  16,244"
+           fill="rgba(0,0,0,0.3)" filter="url(#dmShadow)"/>
+
+  <!-- Main diamond fill -->
+  <polygon points="256,4  496,244  256,484  16,244"
+           fill="url(#dmBgGrad)"/>
+
+  <!-- Outer border: 1.5px, #4DD9FF at 25% opacity -->
+  <polygon points="256,4  496,244  256,484  16,244"
+           fill="none" stroke="#4DD9FF" stroke-width="1.5" stroke-opacity="0.25"
+           stroke-linejoin="miter"/>
+
+  <!-- Inner border: 1px, #4DD9FF at 10% opacity, 6px inset
+       (6px perpendicular to edge = 8.5px on axis) -->
+  <polygon points="256,12.5  487.5,244  256,475.5  24.5,244"
+           fill="none" stroke="#4DD9FF" stroke-width="1" stroke-opacity="0.10"
+           stroke-linejoin="miter"/>
+
+  <!-- All internal content clipped to diamond shape -->
+  <g clip-path="url(#dmDiamondClip)">
+
+    <!-- Surface highlight shimmer -->
+    <polygon points="256,4  496,244  256,484  16,244" fill="url(#dmHighlight)"/>
+
+    <!-- ============================================ -->
+    <!-- MINIMAL GRID — center crosshairs only        -->
+    <!-- ============================================ -->
+
+    <!-- Horizontal center line -->
+    <line x1="16" y1="244" x2="496" y2="244"
+          stroke="#1A1A22" stroke-width="0.8" opacity="0.5"/>
+
+    <!-- Vertical center line -->
+    <line x1="256" y1="4" x2="256" y2="484"
+          stroke="#1A1A22" stroke-width="0.8" opacity="0.5"/>
+
+    <!-- ============================================ -->
+    <!-- AREA FILL UNDER CURVE                        -->
+    <!-- ============================================ -->
+
+    <!--
+      S-curve flows diagonally from lower-left toward upper-right,
+      following the diamond's natural diagonal energy.
+      Area fill closes down to the bottom-right edge of the diamond.
+    -->
+
+    <path d="M 80 408
+             C 115 388, 135 365, 168 320
+             C 201 275, 215 258, 256 230
+             C 297 202, 318 172, 348 135
+             C 378 98, 400 72, 436 45
+             L 496 244 L 256 484 L 16 244 Z"
+          fill="url(#dmAreaFill)"/>
+
+    <!-- ============================================ -->
+    <!-- S-CURVE — lower-left to upper-right          -->
+    <!-- Diagonal flow matching diamond orientation   -->
+    <!-- ============================================ -->
+
+    <!-- Wide ambient glow layer -->
+    <path d="M 80 408
+             C 118 382, 138 355, 168 320
+             C 198 285, 218 258, 256 230
+             C 294 202, 318 172, 348 135
+             C 378 98, 400 72, 436 45"
+          fill="none" stroke="#4DD9FF" stroke-width="4.5" stroke-linecap="round"
+          filter="url(#dmCurveGlowWide)" opacity="0.55"/>
+
+    <!-- Main glow layer -->
+    <path d="M 80 408
+             C 118 382, 138 355, 168 320
+             C 198 285, 218 258, 256 230
+             C 294 202, 318 172, 348 135
+             C 378 98, 400 72, 436 45"
+          fill="none" stroke="#4DD9FF" stroke-width="3.5" stroke-linecap="round"
+          filter="url(#dmCurveGlow)"/>
+
+    <!-- Crisp curve stroke -->
+    <path d="M 80 408
+             C 118 382, 138 355, 168 320
+             C 198 285, 218 258, 256 230
+             C 294 202, 318 172, 348 135
+             C 378 98, 400 72, 436 45"
+          fill="none" stroke="url(#dmCurveGrad)" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Bright core highlight for depth -->
+    <path d="M 80 408
+             C 118 382, 138 355, 168 320
+             C 198 285, 218 258, 256 230
+             C 294 202, 318 172, 348 135
+             C 378 98, 400 72, 436 45"
+          fill="none" stroke="#FFFFFF" stroke-width="0.7" stroke-linecap="round" opacity="0.2"/>
+
+    <!-- ============================================ -->
+    <!-- CONTROL POINTS — 3 along the S-curve         -->
+    <!-- White cores with cyan halo rings             -->
+    <!-- ============================================ -->
+
+    <!-- Point 1: Lower curve region -->
+    <circle cx="168" cy="320" r="18" fill="url(#dmPointGlow)" opacity="0.85"/>
+    <circle cx="168" cy="320" r="6.5" fill="none" stroke="#4DD9FF" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="168" cy="320" r="3.5" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="168" cy="320" r="1.8" fill="#FFFFFF"/>
+
+    <!-- Point 2: Center inflection point -->
+    <circle cx="256" cy="230" r="20" fill="url(#dmPointGlow)" opacity="0.9"/>
+    <circle cx="256" cy="230" r="7.5" fill="none" stroke="#4DD9FF" stroke-width="1.8" opacity="0.55"/>
+    <circle cx="256" cy="230" r="4" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="256" cy="230" r="2" fill="#FFFFFF"/>
+
+    <!-- Point 3: Upper curve region -->
+    <circle cx="348" cy="135" r="18" fill="url(#dmPointGlow)" opacity="0.85"/>
+    <circle cx="348" cy="135" r="6.5" fill="none" stroke="#4DD9FF" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="348" cy="135" r="3.5" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="348" cy="135" r="1.8" fill="#FFFFFF"/>
+
+    <!-- ============================================ -->
+    <!-- VIGNETTE OVERLAY — edge darkening            -->
+    <!-- ============================================ -->
+
+    <polygon points="256,4  496,244  256,484  16,244" fill="url(#dmVignette)"/>
+
+  </g>
+
+  <!-- ============================================ -->
+  <!-- CORNER VERTEX ACCENTS                        -->
+  <!-- Subtle cyan dots at each diamond vertex      -->
+  <!-- ============================================ -->
+
+  <!-- Top vertex -->
+  <circle cx="256" cy="4" r="3" fill="#4DD9FF" opacity="0.12" filter="url(#dmVertexGlow)"/>
+  <circle cx="256" cy="4" r="1.5" fill="#4DD9FF" opacity="0.35"/>
+
+  <!-- Right vertex -->
+  <circle cx="496" cy="244" r="3" fill="#4DD9FF" opacity="0.12" filter="url(#dmVertexGlow)"/>
+  <circle cx="496" cy="244" r="1.5" fill="#4DD9FF" opacity="0.35"/>
+
+  <!-- Bottom vertex -->
+  <circle cx="256" cy="484" r="3" fill="#4DD9FF" opacity="0.12" filter="url(#dmVertexGlow)"/>
+  <circle cx="256" cy="484" r="1.5" fill="#4DD9FF" opacity="0.35"/>
+
+  <!-- Left vertex -->
+  <circle cx="16" cy="244" r="3" fill="#4DD9FF" opacity="0.12" filter="url(#dmVertexGlow)"/>
+  <circle cx="16" cy="244" r="1.5" fill="#4DD9FF" opacity="0.35"/>
+
+  <!-- ============================================ -->
+  <!-- "CURVE" TEXT — below diamond                  -->
+  <!-- Wide-tracked monospace, premium badge style   -->
+  <!-- ============================================ -->
+
+  <text x="260" y="504" text-anchor="middle"
+        font-family="'SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace"
+        font-size="18" font-weight="500"
+        letter-spacing="8" fill="#4DD9FF" opacity="0.85">
+    CURVE
+  </text>
+
+</svg>
