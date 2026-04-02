@@ -8,6 +8,8 @@
 
 Interactive curve editor + LFO for TouchDesigner. Draw custom envelopes and waveform shapes, output as a CHOP driven by any timing source — LFO, beat, timeline, or external signal.
 
+![Presets](https://github.com/REMvisual/td-CurveTool/releases/download/v1.1/presets-grid.png)
+
 ## Features
 
 - **Custom curve CHOP output** -- your drawn curve is output as a Script CHOP (default 256 samples), ready to wire into a Lookup CHOP driven by any timing source
