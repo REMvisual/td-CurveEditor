@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/REMvisual/td-CurveTool/releases/download/v2.0/banner.svg" alt="CurveTool Free v2.0" width="100%">
+  <img src="https://github.com/REMvisual/td-CurveTool/releases/download/v2.0/banner-1280x320.png" alt="CurveTool Free v2.0" width="100%">
 </p>
 
 [![Download Latest](https://img.shields.io/github/v/release/REMvisual/td-CurveTool?style=for-the-badge&label=Download&color=blue)](https://github.com/REMvisual/td-CurveTool/releases/latest)
