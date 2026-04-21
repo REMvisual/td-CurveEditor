@@ -7,7 +7,7 @@
 ![Views](https://komarev.com/ghpvc/?username=REMvisual-td-CurveTool&label=Views&color=brightgreen&style=for-the-badge)
 [![Upgrade to Pro](https://img.shields.io/badge/Upgrade-CurveTool%20Pro-ff7733?style=for-the-badge)](https://remrepo.com/buy/curvetool/)
 
-Interactive curve editor + LFO for TouchDesigner 2025.x. Draw custom envelopes and waveform shapes on an HTML Canvas UI, output as a CHOP driven by any timing source — LFO, beat, timeline, or external signal.
+Interactive curve editor + LFO for TouchDesigner 202.12370 ++. Draw custom envelopes and waveform shapes on an HTML Canvas UI, output as a CHOP driven by any timing source — LFO, beat, timeline, or external signal.
 
 ## What It Does
 
